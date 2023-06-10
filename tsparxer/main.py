@@ -6,7 +6,7 @@ import ply.lex as lex
 tokens = (
     # JA
     "ANY",
-    # Paul
+    # Paul Gudiño
     "RETURN",
     # Chris
     "PLUS",

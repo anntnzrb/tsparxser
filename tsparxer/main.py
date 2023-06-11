@@ -5,17 +5,9 @@ def main():
     # Build the lexer
     lexer = build_lexer()
 
-    # Test it out
-    data = """
-    "dsadasdas"
-    ()
-    []{}
-    =
-    +=
-    -=
-    ,
-    =
-    """
+    file: str = "samples/data.txt"
+    with open(file, "r") as file:
+        data = file.read()
 
     # Give the lexer some input
     lexer.input(data)

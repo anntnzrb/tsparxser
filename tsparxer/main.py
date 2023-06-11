@@ -1,34 +1,50 @@
 import ply.lex as lex
 
 # ------------------------------------------------------------------------------
+# Reserved words
+# ------------------------------------------------------------------------------
+reserved = {
+    # JA
+    # Paul
+    "while": "WHILE",
+    "return": "RETURN",
+    # Chris
+}
+# ------------------------------------------------------------------------------
 # Tokens
 # ------------------------------------------------------------------------------
 tokens = (
+    "ID",
     # JA
     "ANY",
-    # Paul Gudiño
-    "RETURN",
+    # Paul
+    # "STRING",
     # Chris
     "PLUS",
-)
+) + tuple(reserved.values())
 
 # ------------------------------------------------------------------------------
 # Token-RegEx
 # ------------------------------------------------------------------------------
 t_PLUS = r"\+"
 
-
 # A regular expression rule with some action code
-def t_NUMBER(t):
-    r"\d+"
-    t.value = int(t.value)
-    return t
+# def t_NUMBER(t):
+#     r"\d+"
+#     t.value = int(t.value)
+#     return t
 
 
 # Define a rule so we can track line numbers
 def t_newline(t):
     r"\n+"
     t.lexer.lineno += len(t.value)
+
+
+def t_ID(t):
+    r"[a-zA-Z]+"
+    t.type = reserved.get(t.value.lower(), "ID")
+    return t
 
 
 # A string containing ignored characters (spaces and tabs)
@@ -50,6 +66,9 @@ lexer = lex.lex()
 data = """
 3 + 4 * 10
   + -20 *2
+  while
+  WHILE
+  while2
 """
 
 # Give the lexer some input

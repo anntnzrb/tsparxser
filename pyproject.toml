@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "tsparxer"
+version = "0.1.0"
+description = "TODO"
+authors = [
+    "Juan Antonio González <juangonz@espol.edu.ec>",
+    "Paul Gudiño <pgudino@espol.edu.ec>",
+    "Christopher Villa <TODO@espol.edu.ec>",
+]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+ply = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -8,9 +8,9 @@ reserved: Dict[str, str] = {
     # JA
     "any": "ANY",
     "bool": "BOOL",
-    "break": "BOOL",
-    "case": "BOOL",
-    "catch": "BOOL",
+    "break": "BREAK",
+    "case": "CASE",
+    "catch": "CATCH",
     "class": "CLASS",
     "const": "CONST",
     "continue": "CONTINUE",
@@ -55,6 +55,7 @@ tokens: Tuple[str] = (
     "CLOSEBRACE",
     "COMMA",
     "EQUALS",
+    "EQUALSEQUALS",
     "PLUSEQUALS",
     "MINUSEQUALS",
     # Chris
@@ -75,6 +76,7 @@ t_OPENBRACE: str = r"\{"
 t_CLOSEBRACE: str = r"\}"
 t_COMMA: str = r"\,"
 t_EQUALS: str = r"="
+t_EQUALSEQUALS: str = r"=="
 t_PLUSEQUALS: str = r"\+="
 t_MINUSEQUALS: str = r"\-="
 

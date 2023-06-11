@@ -92,6 +92,7 @@ def t_newline(t: lex.LexToken) -> None:
 def t_ID(t: lex.LexToken) -> lex.LexToken:
     r"[a-zA-Z]+"
     t.type = reserved.get(t.value.lower(), "ID")
+
     return t
 
 

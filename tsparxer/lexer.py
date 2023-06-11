@@ -5,39 +5,43 @@ from typing import Dict, Tuple
 # Reserved words
 # ------------------------------------------------------------------------------
 reserved: Dict[str, str] = {
-    # JA
-    "any": "ANY",
-    "bool": "BOOL",
-    "break": "BREAK",
-    "case": "CASE",
-    "catch": "CATCH",
-    "class": "CLASS",
-    "const": "CONST",
-    "continue": "CONTINUE",
-    "else": "ELSE",
-    "false": "FALSE",
-    "finally": "FINALLY",
-    "for": "FOR",
-    "function": "FUNCTION",
-    "constructor": "CONSTRUCTOR",
-    "if": "IF",
-    "import": "IMPORT",
-    "let": "LET",
-    "new": "NEW",
-    "number": "NUMBER",
-    "private": "PRIVATE",
-    "protected": "PROTECTED",
-    "public": "PUBLIC",
-    # Paul
-    "while": "WHILE",
-    "return": "RETURN",
-    "true": "TRUE",
-    "try": "TRY",
-    "throw": "THROW",
-    "var": "VAR",
-    "string": "STRING",
-    "error": "ERROR",
+    keyword: keyword.upper()
+    for keyword in [
+        # JA
+        "any",
+        "bool",
+        "break",
+        "case",
+        "catch",
+        "class",
+        "const",
+        "continue",
+        "else",
+        "false",
+        "finally",
+        "for",
+        "function",
+        "constructor",
+        "if",
+        "import",
+        "let",
+        "new",
+        "number",
+        "private",
+        "protected",
+        "public",
+        # Paul
+        "while",
+        "return",
+        "true",
+        "try",
+        "throw",
+        "var",
+        "string",
+        "error",
+    ]
 }
+
 
 # ------------------------------------------------------------------------------
 # Tokens

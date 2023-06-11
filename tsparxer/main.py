@@ -18,6 +18,7 @@ reserved = {
     "error": "ERROR"
     # Chris
 }
+
 # ------------------------------------------------------------------------------
 # Tokens
 # ------------------------------------------------------------------------------
@@ -25,20 +26,19 @@ tokens = (
     # JA
     "ANY",
     # Paul
-    "StringContent",
-    "OpenParen",
-    "CloseParen",
-    "OpenBracket",
-    "CloseBracket",
-    "OpenBrace",
-    "CloseBrace",
-    "Comma",
-    "Equals",
-    "PlusEquals",
-    "MinusEquals",
+    "STRINGCONTENT",
+    "OPENPAREN",
+    "CLOSEPAREN",
+    "OPENBRACKET",
+    "CLOSEBRACKET",
+    "OPENBRACE",
+    "CLOSEBRACE",
+    "COMMA",
+    "EQUALS",
+    "PLUSEQUALS",
+    "MINUSEQUALS",
     # Chris
     "PLUS",
-    # ID
     "ID",
 ) + tuple(reserved.values())
 
@@ -46,17 +46,17 @@ tokens = (
 # Token-RegEx
 # ------------------------------------------------------------------------------
 t_PLUS = r"\+"
-t_StringContent = r"(\"[^\"]*\"|'[^']*')"
-t_OpenParen = r"\("
-t_CloseParen = r"\)"
-t_OpenBracket = r"\["
-t_CloseBracket = r"\]"
-t_OpenBrace = r"\{"
-t_CloseBrace = r"\}"
-t_Comma = r"\,"
-t_Equals = r"="
-t_PlusEquals = r"\+="
-t_MinusEquals = r"\-="
+t_STRINGCONTENT = r"(\"[^\"]*\"|'[^']*')"
+t_OPENPAREN = r"\("
+t_CLOSEPAREN = r"\)"
+t_OPENBRACKET = r"\["
+t_CLOSEBRACKET = r"\]"
+t_OPENBRACE = r"\{"
+t_CLOSEBRACE = r"\}"
+t_COMMA = r"\,"
+t_EQUALS = r"="
+t_PLUSEQUALS = r"\+="
+t_MINUSEQUALS = r"\-="
 
 
 # A regular expression rule with some action code

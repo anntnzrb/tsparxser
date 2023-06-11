@@ -36,15 +36,13 @@ reserved: Dict[str, str] = {
     "throw": "THROW",
     "var": "VAR",
     "string": "STRING",
-    "error": "ERROR"
-    # Chris
+    "error": "ERROR",
 }
 
 # ------------------------------------------------------------------------------
 # Tokens
 # ------------------------------------------------------------------------------
 tokens: Tuple[str] = (
-    # JA
     # Paul
     "STRINGCONTENT",
     "OPENPAREN",
@@ -54,6 +52,8 @@ tokens: Tuple[str] = (
     "OPENBRACE",
     "CLOSEBRACE",
     "COMMA",
+    "COLON",
+    "SEMICOLON",
     "EQUALS",
     "EQUALSEQUALS",
     "PLUSEQUALS",
@@ -79,6 +79,8 @@ t_EQUALS: str = r"="
 t_EQUALSEQUALS: str = r"=="
 t_PLUSEQUALS: str = r"\+="
 t_MINUSEQUALS: str = r"\-="
+t_COLON: str = r"\:"
+t_SEMICOLON: str = r"\;"
 
 # ignored characters
 t_ignore: str = " \t"

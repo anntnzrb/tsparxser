@@ -8,25 +8,56 @@ reserved = {
     # Paul
     "while": "WHILE",
     "return": "RETURN",
+    "true": "TRUE",
+    "try": "TRY",
+    "throw": "THROW",
+    "var": "VAR",
+    "with": "WITH",
+    "this": "THIS",
+    "string": "STRING",
+    "error": "ERROR"
     # Chris
 }
 # ------------------------------------------------------------------------------
 # Tokens
 # ------------------------------------------------------------------------------
 tokens = (
-    "ID",
     # JA
     "ANY",
     # Paul
-    # "STRING",
+    "StringContent",
+    "OpenParen",
+    "CloseParen",
+    "OpenBracket",
+    "CloseBracket",
+    "OpenBrace",
+    "CloseBrace",
+    "Comma",
+    "Equals",
+    "PlusEquals",
+    "MinusEquals",
     # Chris
     "PLUS",
+    # ID
+    "ID",
 ) + tuple(reserved.values())
 
 # ------------------------------------------------------------------------------
 # Token-RegEx
 # ------------------------------------------------------------------------------
 t_PLUS = r"\+"
+t_StringContent = r"(\"[^\"]*\"|'[^']*')"
+t_OpenParen = r"\("
+t_CloseParen = r"\)"
+t_OpenBracket = r"\["
+t_CloseBracket = r"\]"
+t_OpenBrace = r"\{"
+t_CloseBrace = r"\}"
+t_Comma = r"\,"
+t_Equals = r"="
+t_PlusEquals = r"\+="
+t_MinusEquals = r"\-="
+
 
 # A regular expression rule with some action code
 # def t_NUMBER(t):
@@ -64,11 +95,14 @@ lexer = lex.lex()
 
 # Test it out
 data = """
-3 + 4 * 10
-  + -20 *2
-  while
-  WHILE
-  while2
+"dsadasdas"
+()
+[]{}
+=
++=
+-=
+,
+=
 """
 
 # Give the lexer some input

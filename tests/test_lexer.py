@@ -1,7 +1,7 @@
 import unittest
 from tsparxer.lexer import build_lexer
 from ply.lex import Lexer, LexToken
-from typing import Tuple, TypedDict
+from typing import Tuple, TypedDict, Any
 
 
 class TestLexer(unittest.TestCase):
@@ -10,7 +10,7 @@ class TestLexer(unittest.TestCase):
     """
 
     # define the TestCase TypedDict for representing test cases
-    TestCase = TypedDict("TestCase", {"type": str, "value": str})
+    TestCase = TypedDict("TestCase", {"type": str, "value": Any})
 
     def setUp(self) -> None:
         """
@@ -54,6 +54,32 @@ class TestLexer(unittest.TestCase):
             ),
         )
 
-
+    def test_lex_arithmetic_ops(self) -> None:
+        self.run_test(
+            data=r'var num1 = (1 * 5) + (6 + 2) + (8 / 4);',
+            expected=(
+                {"type": "VAR", "value": "var"},
+                {"type": "ID", "value": "num1"},
+                {"type": "EQUALS", "value": "="},
+                {"type": "OPENPAREN", "value": "("},
+                {"type": "NUMBER", "value": 1},
+                {"type": "MULTIPLY", "value": "*"},
+                {"type": "NUMBER", "value": 5},
+                {"type": "CLOSEPAREN", "value": ")"},
+                {"type": "PLUS", "value": "+"},
+                {"type": "OPENPAREN", "value": "("},
+                {"type": "NUMBER", "value": 6},
+                {"type": "PLUS", "value": "+"},
+                {"type": "NUMBER", "value": 2},
+                {"type": "CLOSEPAREN", "value": ")"},
+                {"type": "PLUS", "value": "+"},
+                {"type": "OPENPAREN", "value": "("},
+                {"type": "NUMBER", "value": 8},
+                {"type": "DIVIDE", "value": "/"},
+                {"type": "NUMBER", "value": 4},
+                {"type": "CLOSEPAREN", "value": ")"},
+                {"type": "SEMICOLON", "value": ";"},
+            ),
+        )
 if __name__ == "__main__":
     unittest.main()

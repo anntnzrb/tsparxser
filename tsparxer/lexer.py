@@ -42,30 +42,46 @@ reserved: Dict[str, str] = {
     ]
 }
 
-
 # ------------------------------------------------------------------------------
 # Tokens
 # ------------------------------------------------------------------------------
 tokens: Tuple[str] = (
-    # Paul
-    "STRINGCONTENT",
-    "OPENPAREN",
-    "CLOSEPAREN",
-    "OPENBRACKET",
-    "CLOSEBRACKET",
-    "OPENBRACE",
-    "CLOSEBRACE",
-    "COMMA",
-    "COLON",
-    "SEMICOLON",
-    "EQUALS",
-    "EQUALSEQUALS",
-    "PLUSEQUALS",
-    "MINUSEQUALS",
-    # Chris
-    "PLUS",
-    "ID",
-) + tuple(reserved.values())
+                         # Paul
+                         "STRINGCONTENT",
+                         "OPENPAREN",
+                         "CLOSEPAREN",
+                         "OPENBRACKET",
+                         "CLOSEBRACKET",
+                         "OPENBRACE",
+                         "CLOSEBRACE",
+                         "COMMA",
+                         "COLON",
+                         "SEMICOLON",
+                         "EQUALS",
+                         "PLUSEQUALS",
+                         "MINUSEQUALS",
+                         # Chris
+                         "PLUS",
+                         "ID",
+                         "AMPERSANDAMPERSAND",
+                         "OR",
+                         "XOR",
+                         "EQUALSEQUALS",
+                         "EXCLAMATIONEQUALS",
+                         "LESSTHAN",
+                         "LESSTHANEQUALS",
+                         "GREATERTHAN",
+                         "GREATERTHANEQUALS",
+                         "MINUS",
+                         "MULTIPLY",
+                         "DIVIDE",
+                         "MODULO",
+                         "PLUSPLUS",
+                         "MINUSMINUS",
+                         "DOT",
+                         "WHITESPACE",
+                         "COMMENT"
+                     ) + tuple(reserved.values())
 
 # ------------------------------------------------------------------------------
 # Token-RegEx & Functions
@@ -85,18 +101,46 @@ t_PLUSEQUALS: str = r"\+="
 t_MINUSEQUALS: str = r"\-="
 t_COLON: str = r"\:"
 t_SEMICOLON: str = r"\;"
+t_AMPERSANDAMPERSAND: str = r"&&"
+t_OR: str = r"\|"
+t_XOR: str = r"\^"
+t_EQUALSEQUALS: str = r"=="
+t_EXCLAMATIONEQUALS: str = r"!="
+t_LESSTHAN: str = r"<"
+t_LESSTHANEQUALS: str = r"<="
+t_GREATERTHAN: str = r">"
+t_GREATERTHANEQUALS: str = r">="
+t_MINUS: str = r"-"
+t_MULTIPLY: str = r"\*"
+t_DIVIDE: str = r"/"
+t_MODULO: str = r"%"
+t_PLUSPLUS: str = r"\+\+"
+t_MINUSMINUS: str = r"--"
+t_DOT: str = r"\."
+t_WHITESPACE: str = r"\s"
+
 
 # ignored characters
 t_ignore: str = " \t"
+
+
+def t_COMMENT(t: lex.LexToken) -> None:
+    r'//.*|/\*[^*]*\*+(?:[^/*][^*]*\*+)*/'
+    pass
 
 
 def t_newline(t: lex.LexToken) -> None:
     r"\n+"
     t.lexer.lineno += len(t.value)
 
+def t_NUMBER(t):
+    r'\d+'
+    t.value = int(t.value)
+
+    return t
 
 def t_ID(t: lex.LexToken) -> lex.LexToken:
-    r"[a-zA-Z]+"
+    r"[a-zA-Z_][a-zA-Z_0-9]*"
     t.type = reserved.get(t.value.lower(), "ID")
 
     return t

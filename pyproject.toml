@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "tsparxer"
 version = "0.1.0"
-description = "TODO"
+description = "Lexing and Parsing TypeScript using the PLY library."
 authors = [
     "Juan Antonio González <juangonz@espol.edu.ec>",
     "Paul Gudiño <pgudino@espol.edu.ec>",

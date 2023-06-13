@@ -15,7 +15,7 @@ ply = "^3.11"
 
 [tool.poetry.scripts]
 app = "tsparxer.main:main"
-test = "tests.test:main"
+test = "tests.test:test"
 
 [build-system]
 requires = ["poetry-core"]

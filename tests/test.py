@@ -7,7 +7,3 @@ def test():
     `poetry run python -m unittest discover`
     """
     subprocess.run(["python", "-m", "unittest", "discover"])
-
-
-def main():
-    test()

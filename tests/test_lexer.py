@@ -54,9 +54,53 @@ class TestLexer(unittest.TestCase):
             ),
         )
 
+    def test_lex_conditional(self) -> None:
+        self.run_test(
+            data=r"""
+            let edad: 15;
+            if (edad >= 18) {
+            console.log("Eres mayor de edad.");
+            } else {
+            console.log("Eres menor de edad.");
+            }
+            """,
+            expected=(
+                {"type": "LET", "value": "let"},
+                {"type": "ID", "value": "edad"},
+                {"type": "COLON", "value": ":"},
+                {"type": "NUMBER", "value": 15},
+                {"type": "SEMICOLON", "value": ";"},
+                {"type": "IF", "value": "if"},
+                {"type": "OPENPAREN", "value": "("},
+                {"type": "ID", "value": "edad"},
+                {"type": "GREATERTHANEQUALS", "value": ">="},
+                {"type": "NUMBER", "value": 18},
+                {"type": "CLOSEPAREN", "value": ")"},
+                {"type": "OPENBRACE", "value": "{"},
+                {"type": "CONSOLE", "value": "console"},
+                {"type": "DOT", "value": "."},
+                {"type": "LOG", "value": "log"},
+                {"type": "OPENPAREN", "value": "("},
+                {"type": "STRINGCONTENT", "value": '"Eres mayor de edad."'},
+                {"type": "CLOSEPAREN", "value": ")"},
+                {"type": "SEMICOLON", "value": ";"},
+                {"type": "CLOSEBRACE", "value": "}"},
+                {"type": "ELSE", "value": "else"},
+                {"type": "OPENBRACE", "value": "{"},
+                {"type": "CONSOLE", "value": "console"},
+                {"type": "DOT", "value": "."},
+                {"type": "LOG", "value": "log"},
+                {"type": "OPENPAREN", "value": "("},
+                {"type": "STRINGCONTENT", "value": '"Eres menor de edad."'},
+                {"type": "CLOSEPAREN", "value": ")"},
+                {"type": "SEMICOLON", "value": ";"},
+                {"type": "CLOSEBRACE", "value": "}"},
+            ),
+        )
+
     def test_lex_arithmetic_ops(self) -> None:
         self.run_test(
-            data=r'var num1 = (1 * 5) + (6 + 2) + (8 / 4);',
+            data=r"var num1 = (1 * 5) + (6 + 2) + (8 / 4);",
             expected=(
                 {"type": "VAR", "value": "var"},
                 {"type": "ID", "value": "num1"},
@@ -81,5 +125,7 @@ class TestLexer(unittest.TestCase):
                 {"type": "SEMICOLON", "value": ";"},
             ),
         )
+
+
 if __name__ == "__main__":
     unittest.main()

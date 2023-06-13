@@ -1,4 +1,4 @@
-name: Install & Test Python App
+name: Testing
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
       # Python setup
       #----------------------------------------------
     - uses: actions/checkout@v3
-    - name: Set up Python 3.10
+    - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: "3.10"

@@ -37,6 +37,17 @@ class TestLexer(unittest.TestCase):
             self.assertEqual(test["type"], given.type)
             self.assertEqual(test["value"], given.value)
 
+    def read_file(self, file_path: str) -> str:
+        """
+        Reads the contents of given file and returns it as string.
+
+        :param file_path: The path of the file to read
+        """
+        with open(file_path, 'r') as file:
+            f_content = file.read()
+        return f_content
+
+
     # -------------------------------------------------------------------------
     # Tests
     # -------------------------------------------------------------------------
@@ -123,6 +134,93 @@ class TestLexer(unittest.TestCase):
                 {"type": "NUMBER", "value": 4},
                 {"type": "CLOSEPAREN", "value": ")"},
                 {"type": "SEMICOLON", "value": ";"},
+            ),
+        )
+
+    def test_lext_alg01(self) -> None:
+        self.run_test(
+            data=self.read_file('data/alg01.ts'),
+            expected=(
+                {'type': 'FOR', 'value': 'for'},
+                {'type': 'OPENPAREN', 'value': '('},
+                {'type': 'LET', 'value': 'let'},
+                {'type': 'ID', 'value': 'i'},
+                {'type': 'COLON', 'value': ':'},
+                {'type': 'NUMBER', 'value': 'number'},
+                {'type': 'EQUALS', 'value': '='},
+                {'type': 'NUMBER', 'value': 0},
+                {'type': 'SEMICOLON', 'value': ';'},
+                {'type': 'ID', 'value': 'i'},
+                {'type': 'LESSTHAN', 'value': '<'},
+                {'type': 'NUMBER', 'value': 5},
+                {'type': 'SEMICOLON', 'value': ';'},
+                {'type': 'ID', 'value': 'i'},
+                {'type': 'PLUSPLUS', 'value': '++'},
+                {'type': 'CLOSEPAREN', 'value': ')'},
+                {'type': 'OPENBRACE', 'value': '{'},
+                {'type': 'CONSOLE', 'value': 'console'},
+                {'type': 'DOT', 'value': '.'},
+                {'type': 'LOG', 'value': 'log'},
+                {'type': 'OPENPAREN', 'value': '('},
+                {'type': 'STRINGCONTENT', 'value': '"Iteration: "'},
+                {'type': 'PLUS', 'value': '+'},
+                {'type': 'ID', 'value': 'i'},
+                {'type': 'CLOSEPAREN', 'value': ')'},
+                {'type': 'SEMICOLON', 'value': ';'},
+                {'type': 'LET', 'value': 'let'},
+                {'type': 'ID', 'value': 'square'},
+                {'type': 'COLON', 'value': ':'},
+                {'type': 'NUMBER', 'value': 'number'},
+                {'type': 'EQUALS', 'value': '='},
+                {'type': 'ID', 'value': 'i'},
+                {'type': 'MULTIPLY', 'value': '*'},
+                {'type': 'ID', 'value': 'i'},
+                {'type': 'SEMICOLON', 'value': ';'},
+                {'type': 'CONSOLE', 'value': 'console'},
+                {'type': 'DOT', 'value': '.'},
+                {'type': 'LOG', 'value': 'log'},
+                {'type': 'OPENPAREN', 'value': '('},
+                {'type': 'STRINGCONTENT', 'value': '"Square of "'},
+                {'type': 'PLUS', 'value': '+'},
+                {'type': 'ID', 'value': 'i'},
+                {'type': 'PLUS', 'value': '+'},
+                {'type': 'STRINGCONTENT', 'value': '" is: "'},
+                {'type': 'PLUS', 'value': '+'},
+                {'type': 'ID', 'value': 'square'},
+                {'type': 'CLOSEPAREN', 'value': ')'},
+                {'type': 'SEMICOLON', 'value': ';'},
+                {'type': 'IF', 'value': 'if'},
+                {'type': 'OPENPAREN', 'value': '('},
+                {'type': 'ID', 'value': 'i'},
+                {'type': 'MODULO', 'value': '%'},
+                {'type': 'NUMBER', 'value': 2},
+                {'type': 'EQUALSEQUALSEQUALS', 'value': '==='},
+                {'type': 'NUMBER', 'value': 0},
+                {'type': 'CLOSEPAREN', 'value': ')'},
+                {'type': 'OPENBRACE', 'value': '{'},
+                {'type': 'CONSOLE', 'value': 'console'},
+                {'type': 'DOT', 'value': '.'},
+                {'type': 'LOG', 'value': 'log'},
+                {'type': 'OPENPAREN', 'value': '('},
+                {'type': 'ID', 'value': 'i'},
+                {'type': 'PLUS', 'value': '+'},
+                {'type': 'STRINGCONTENT', 'value': '" is even"'},
+                {'type': 'CLOSEPAREN', 'value': ')'},
+                {'type': 'SEMICOLON', 'value': ';'},
+                {'type': 'CLOSEBRACE', 'value': '}'},
+                {'type': 'ELSE', 'value': 'else'},
+                {'type': 'OPENBRACE', 'value': '{'},
+                {'type': 'CONSOLE', 'value': 'console'},
+                {'type': 'DOT', 'value': '.'},
+                {'type': 'LOG', 'value': 'log'},
+                {'type': 'OPENPAREN', 'value': '('},
+                {'type': 'ID', 'value': 'i'},
+                {'type': 'PLUS', 'value': '+'},
+                {'type': 'STRINGCONTENT', 'value': '" is odd"'},
+                {'type': 'CLOSEPAREN', 'value': ')'},
+                {'type': 'SEMICOLON', 'value': ';'},
+                {'type': 'CLOSEBRACE', 'value': '}'},
+                {'type': 'CLOSEBRACE', 'value': '}'},
             ),
         )
 

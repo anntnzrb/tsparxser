@@ -5,8 +5,8 @@ def main():
     # Build the lexer
     lexer = build_lexer()
 
-    samples_dir: str = "samples"
-    file: str = f"{samples_dir}/hello.ts"
+    samples_dir: str = "data"
+    file: str = f"{samples_dir}/alg01.ts"
     with open(file, "r") as file:
         data = file.read()
 

@@ -16,6 +16,7 @@ ply = "^3.11"
 [tool.poetry.scripts]
 app = "tsparxer.main:main"
 test = "tests.test:test"
+parse = "tsparxer.util.lex_out_parser:parse"
 
 [build-system]
 requires = ["poetry-core"]

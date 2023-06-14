@@ -69,6 +69,7 @@ tokens: Tuple[str] = (
     "OR",
     "XOR",
     "EQUALSEQUALS",
+    "EQUALSEQUALSEQUALS",
     "EXCLAMATIONEQUALS",
     "LESSTHAN",
     "LESSTHANEQUALS",
@@ -99,6 +100,7 @@ t_CLOSEBRACE: str = r"\}"
 t_COMMA: str = r"\,"
 t_EQUALS: str = r"="
 t_EQUALSEQUALS: str = r"=="
+t_EQUALSEQUALSEQUALS: str = r"==="
 t_PLUSEQUALS: str = r"\+="
 t_MINUSEQUALS: str = r"\-="
 t_COLON: str = r"\:"

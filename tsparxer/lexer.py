@@ -4,7 +4,7 @@ from typing import Dict, Tuple
 # ------------------------------------------------------------------------------
 # Reserved words
 # ------------------------------------------------------------------------------
-reserved: Dict[str, str] = {
+keywords: Dict[str, str] = {
     keyword: keyword.upper()
     for keyword in [
         # JA
@@ -15,13 +15,13 @@ reserved: Dict[str, str] = {
         "catch",
         "class",
         "const",
+        "constructor",
         "continue",
         "else",
         "false",
         "finally",
         "for",
         "function",
-        "constructor",
         "if",
         "import",
         "let",
@@ -30,63 +30,79 @@ reserved: Dict[str, str] = {
         "private",
         "protected",
         "public",
+        "from",
         # Paul
         "console",
+        "error",
         "log",
-        "while",
         "return",
+        "string",
+        "throw",
         "true",
         "try",
-        "throw",
         "var",
-        "string",
-        "error",
+        "while",
     ]
 }
 
 # ------------------------------------------------------------------------------
+# Data Types
+# ------------------------------------------------------------------------------
+dataTypes = {
+    key: "TYPE_" + key.upper() for key in ["number", "string", "boolean"]
+}
+
+
+# ------------------------------------------------------------------------------
 # Tokens
 # ------------------------------------------------------------------------------
+# merge keywords + types dicts
+reserved = {**keywords, **dataTypes}
+
 tokens: Tuple[str] = (
-    # Paul
-    "STRINGCONTENT",
-    "OPENPAREN",
-    "CLOSEPAREN",
-    "OPENBRACKET",
-    "CLOSEBRACKET",
-    "OPENBRACE",
-    "CLOSEBRACE",
-    "COMMA",
-    "COLON",
-    "SEMICOLON",
-    "EQUALS",
-    "PLUSEQUALS",
-    "MINUSEQUALS",
-    # Chris
-    "PLUS",
-    "ID",
-    "AMPERSAND",
-    "AMPERSANDAMPERSAND",
-    "OR",
-    "OROR",
-    "XOR",
-    "EQUALSEQUALS",
-    "EQUALSEQUALSEQUALS",
-    "EXCLAMATIONEQUALS",
-    "LESSTHAN",
-    "LESSTHANEQUALS",
-    "GREATERTHAN",
-    "GREATERTHANEQUALS",
-    "MINUS",
-    "MULTIPLY",
-    "DIVIDE",
-    "MODULO",
-    "PLUSPLUS",
-    "MINUSMINUS",
-    "DOT",
-    "WHITESPACE",
-    "COMMENT",
-) + tuple(reserved.values())
+    (
+        # Paul
+        "STRINGCONTENT",
+        "OPENPAREN",
+        "CLOSEPAREN",
+        "OPENBRACKET",
+        "CLOSEBRACKET",
+        "OPENBRACE",
+        "CLOSEBRACE",
+        "COMMA",
+        "COLON",
+        "SEMICOLON",
+        "EQUALS",
+        "PLUSEQUALS",
+        "MINUSEQUALS",
+        # Chris
+        "PLUS",
+        "ID",
+        "AMPERSAND",
+        "AMPERSANDAMPERSAND",
+        "OR",
+        "OROR",
+        "XOR",
+        "EQUALSEQUALS",
+        "EQUALSEQUALSEQUALS",
+        "EXCLAMATIONEQUALS",
+        "LESSTHAN",
+        "LESSTHANEQUALS",
+        "GREATERTHAN",
+        "GREATERTHANEQUALS",
+        "MINUS",
+        "MULTIPLY",
+        "DIVIDE",
+        "MODULO",
+        "PLUSPLUS",
+        "MINUSMINUS",
+        "DOT",
+        "WHITESPACE",
+        "COMMENT",
+    )
+    + tuple(keywords.values())
+    + tuple(dataTypes.values())
+)
 
 # ------------------------------------------------------------------------------
 # Token-RegEx & Functions

@@ -65,8 +65,10 @@ tokens: Tuple[str] = (
     # Chris
     "PLUS",
     "ID",
+    "AMPERSAND",
     "AMPERSANDAMPERSAND",
     "OR",
+    "OROR",
     "XOR",
     "EQUALSEQUALS",
     "EQUALSEQUALSEQUALS",
@@ -105,8 +107,10 @@ t_PLUSEQUALS: str = r"\+="
 t_MINUSEQUALS: str = r"\-="
 t_COLON: str = r"\:"
 t_SEMICOLON: str = r"\;"
+t_AMPERSAND: str = r"&"
 t_AMPERSANDAMPERSAND: str = r"&&"
 t_OR: str = r"\|"
+t_OROR: str = r"\|\|"
 t_XOR: str = r"\^"
 t_EQUALSEQUALS: str = r"=="
 t_EXCLAMATIONEQUALS: str = r"!="

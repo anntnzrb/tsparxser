@@ -9,16 +9,20 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v3
         with:
-          python-version: "3.10"
+          python-version: 3.10
       - run: pip install black
-      - run: |
-          black --check .
-          if [ $? -eq 1 ]
-          then
-            black .
-            git config --global user.name "GitHub Actions"
-            git config --global user.email "actions@github.com"
-            git add .
-            git commit -m "fmt: auto formatted"
-            git push
-          fi
+      
+      - name: Formatting needed?
+        run: black --check .
+        id: fmt_check
+        continue-on-error: true
+        
+      - name: fmt & push if needed
+        if: steps.fmt_check.outcome == 'failure'
+        run: |
+          black .
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add .
+          git commit -m "fmt: auto formatted"
+          git push

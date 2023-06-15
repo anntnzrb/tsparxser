@@ -18,6 +18,9 @@ app = "tsparxer.main:main"
 test = "tests.test:test"
 parse = "tsparxer.util.lex_out_parser:parse"
 
+[tool.black]
+line-length = 80
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

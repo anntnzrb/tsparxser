@@ -1,3 +1,11 @@
+/**
+ * A minimal TypeScript Fibonacci function example
+ *
+ * This script calculates the nth Fibonacci number using an iterative approach.
+ *
+ * Author: Paul Gudiño
+ */
+
 function fibonacci(n: number): number {
     if (n < 1) {
         return 0;

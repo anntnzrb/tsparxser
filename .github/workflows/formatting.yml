@@ -1,0 +1,24 @@
+name: Formatting
+
+on: push
+
+jobs:
+  black:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+      - run: pip install black
+      - run: |
+          black --check .
+          if [ $? -eq 1 ]
+          then
+            black .
+            git config --global user.name "GitHub Actions"
+            git config --global user.email "actions@github.com"
+            git add .
+            git commit -m "fmt: auto formatted"
+            git push
+          fi

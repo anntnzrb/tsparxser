@@ -1,5 +1,6 @@
 import unittest
 from tsparxer.lexer import Lexer as TSLexer
+from tsparxer.util import read_file
 from ply.lex import LexToken
 from typing import Tuple, TypedDict, Any
 
@@ -35,16 +36,6 @@ class TestLexer(unittest.TestCase):
         for test, given in zip(expected, tokens):
             self.assertEqual(test["type"], given.type)
             self.assertEqual(test["value"], given.value)
-
-    def read_file(self, file_path: str) -> str:
-        """
-        Reads the contents of given file and returns it as string.
-
-        :param file_path: The path of the file to read
-        """
-        with open(file_path, "r") as file:
-            f_content = file.read()
-        return f_content
 
     # -------------------------------------------------------------------------
     # Tests
@@ -137,7 +128,7 @@ class TestLexer(unittest.TestCase):
 
     def test_lext_alg01(self) -> None:
         self.run_test(
-            data=self.read_file("data/alg01.ts"),
+            data=read_file("data/alg01.ts"),
             expected=(
                 {"type": "FOR", "value": "for"},
                 {"type": "OPENPAREN", "value": "("},
@@ -224,7 +215,7 @@ class TestLexer(unittest.TestCase):
 
     def test_lext_alg02(self) -> None:
         self.run_test(
-            data=self.read_file("data/alg02.ts"),
+            data=read_file("data/alg02.ts"),
             expected=(
                 {"type": "FUNCTION", "value": "function"},
                 {"type": "ID", "value": "fibonacci"},
@@ -307,7 +298,7 @@ class TestLexer(unittest.TestCase):
 
     def test_lext_alg03(self) -> None:
         self.run_test(
-            data=self.read_file("data/alg03.ts"),
+            data=read_file("data/alg03.ts"),
             expected=(
                 {"type": "FUNCTION", "value": "function"},
                 {"type": "ID", "value": "factorialize"},
@@ -376,7 +367,7 @@ class TestLexer(unittest.TestCase):
 
     def test_lext_alg04(self) -> None:
         self.run_test(
-            data=self.read_file("data/alg04.ts"),
+            data=read_file("data/alg04.ts"),
             expected=(
                 {"type": "IMPORT", "value": "import"},
                 {"type": "OPENBRACE", "value": "{"},

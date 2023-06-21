@@ -16,7 +16,10 @@ ply = "^3.11"
 [tool.poetry.scripts]
 app = "tsparxer.main:main"
 test = "tests.test:test"
-parse = "tsparxer.util.lex_out_parser:parse"
+parse = "tsparxer.util:parse"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
 
 [tool.black]
 line-length = 80

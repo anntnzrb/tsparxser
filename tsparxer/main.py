@@ -1,11 +1,11 @@
+from .util import read_file
 from .lexer import Lexer as TSLexer
 
 
 def main():
     samples_dir: str = "data"
     file: str = f"{samples_dir}/data.txt"
-    with open(file, "r") as file:
-        data = file.read()
+    data: str = read_file(file)
 
     # create lexer and feed data
     lexer: TSLexer = TSLexer()

@@ -1,8 +1,9 @@
 import unittest
+from ply.lex import LexToken
+from typing import List, Tuple, TypedDict, Any
+
 from tsparxer.lexer import Lexer as TSLexer
 from tsparxer.util import read_file
-from ply.lex import LexToken
-from typing import Tuple, TypedDict, Any
 
 
 class TestLexer(unittest.TestCase):

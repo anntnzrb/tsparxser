@@ -1,3 +1,6 @@
+from typing import List
+from ply.lex import LexToken
+
 from .util import read_file
 from .lexer import Lexer as TSLexer
 

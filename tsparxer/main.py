@@ -1,24 +1,19 @@
-from .lexer import build_lexer
+from .lexer import Lexer as TSLexer
 
 
 def main():
-    # Build the lexer
-    lexer = build_lexer()
-
     samples_dir: str = "data"
-    file: str = f"{samples_dir}/alg01.ts"
+    file: str = f"{samples_dir}/data.txt"
     with open(file, "r") as file:
         data = file.read()
 
-    # Give the lexer some input
-    lexer.input(data)
+    # create lexer and feed data
+    lexer: TSLexer = TSLexer()
+    lexed: List[LexToken] = lexer.lex(data)
 
-    # Tokenize
-    while True:
-        tok = lexer.token()
-        if not tok:
-            break  # No more input
-        print(tok)
+    # show tokens
+    for t in lexed:
+        print(t)
 
 
 if __name__ == "__main__":

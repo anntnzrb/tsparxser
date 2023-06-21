@@ -1,6 +1,6 @@
 import unittest
-from tsparxer.lexer import build_lexer
-from ply.lex import Lexer, LexToken
+from tsparxer.lexer import Lexer as TSLexer
+from ply.lex import LexToken
 from typing import Tuple, TypedDict, Any
 
 
@@ -16,7 +16,7 @@ class TestLexer(unittest.TestCase):
         """
         Set up the test case by initializing the lexer.
         """
-        self.lexer: Lexer = build_lexer()
+        self.lexer: TSLexer = TSLexer()
 
     def run_test(self, data: str, expected: Tuple[TestCase]) -> None:
         """
@@ -25,9 +25,8 @@ class TestLexer(unittest.TestCase):
         :param data: The input string to be tokenized.
         :param expected: A tuple of expected tokens in the TestCase format.
         """
-        # Tokenize the input data
-        self.lexer.input(data)
-        tokens: Tuple[LexToken] = tuple(iter(self.lexer.token, None))
+        # tokenize input data
+        tokens: List[LexToken] = self.lexer.lex(data)
 
         # check if number of tokens match expected count
         self.assertEqual(len(expected), len(tokens), "Token count mismatch")

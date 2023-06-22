@@ -1,0 +1,43 @@
+name: Formatting
+
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      #----------------------------------------------
+      # Python & poetry setup
+      #----------------------------------------------
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"
+
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+
+    - name: Install dependencies
+      run: poetry install --no-interaction --with dev
+  
+      #----------------------------------------------
+
+    - name: Run linter
+      run: |
+        poetry run fmt
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git add .
+        git commit -m "style: fmt" || echo "No changes to commit"
+        git push

@@ -17,6 +17,8 @@ ply = "^3.11"
 app = "tsparxer.main:main"
 test = "tests.test:test"
 parse = "tsparxer.util:parse"
+fmt = "lib.process_src:format"
+lint = "lib.process_src:lint"
 
 [tool.poetry.group.dev]
 optional = true

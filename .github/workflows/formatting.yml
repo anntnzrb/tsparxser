@@ -30,11 +30,11 @@ jobs:
   
       #----------------------------------------------
 
-    - name: Run linter
+    - name: Run formatter
       run: |
         poetry run fmt
 
-    - name: Commit and push changes
+    - name: Commit & push
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"

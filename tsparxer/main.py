@@ -29,16 +29,16 @@ def main():
     # option 2 : yacc
     elif choice == 2:
         parser: TSParser = TSParser()
-        parser =  parser.run()
+        parser = parser.run()
         while True:
             try:
-                s = input("sql > ")
+                s = input("TS Parser> ")
             except EOFError:
                 break
             if not s:
                 continue
             parsed = parser.parse(s, lexer=lexer)
-            if parsed != None:
+            if parsed is not None:
                 print(parsed)
 
     else:

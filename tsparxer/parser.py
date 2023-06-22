@@ -44,7 +44,7 @@ class Parser:
                 s = input(prompt)
                 if not s:
                     continue
-                parsed = self.parser.parse(s, self.lexer)
+                self.parser.parse(s, self.lexer)
             except EOFError:
                 break
             except Exception as e:

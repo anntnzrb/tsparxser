@@ -24,18 +24,29 @@ class Parser:
     def p_assignment_value(self, p: YaccProduction) -> None:
         """
         assignment_value : STRINGCONTENT
-                        | NUMBER
-                        | TRUE
-                        | FALSE
+                         | NUMBER
+                         | TRUE
+                         | FALSE
         """
 
     def p_error(self, p: YaccProduction) -> None:
-        print("Syntax error in input!")
+        print(f"Syntax error in input '{p}'!")
 
     # -------------------------------------------------------------------------
 
-    def __init__(self) -> None:
+    def __init__(self, lexer: TSLexer) -> None:
+        self.lexer = lexer
         self.parser = plyacc.yacc(module=self, debug=True)
 
-    def run(self):
-        return self.parser
+    def run(self, prompt: str):
+        while True:
+            try:
+                s = input(prompt)
+                if not s:
+                    continue
+                parsed = self.parser.parse(s, self.lexer)
+            except EOFError:
+                break
+            except Exception as e:
+                print(f"Error: {e}")
+                continue

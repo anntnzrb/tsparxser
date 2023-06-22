@@ -28,19 +28,8 @@ def main():
 
     # option 2 : yacc
     elif choice == 2:
-        parser: TSParser = TSParser()
-        parser = parser.run()
-        while True:
-            try:
-                s = input("TS Parser> ")
-            except EOFError:
-                break
-            if not s:
-                continue
-            parsed = parser.parse(s, lexer=lexer)
-            if parsed is not None:
-                print(parsed)
-
+        parser: TSParser = TSParser(lexer)
+        parser.run(prompt="TSParser> ")
     else:
         print("Invalid choice")
 

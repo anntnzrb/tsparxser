@@ -178,6 +178,12 @@ class Lexer:
     def __init__(self) -> None:
         self.lexer = plylex.lex(object=self)
 
-    def lex(self, input: str) -> List[LexToken]:
+    def input(self, input: str) -> None:
         self.lexer.input(input)
+
+    def token(self) -> LexToken:
+        return self.lexer.token()
+
+    def lex(self, input: str) -> List[LexToken]:
+        self.input(input)
         return list(self.lexer)

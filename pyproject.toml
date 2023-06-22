@@ -12,15 +12,18 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 ply = "^3.11"
-flake8 = "^6.0.0"
 
 [tool.poetry.scripts]
 app = "tsparxer.main:main"
 test = "tests.test:test"
 parse = "tsparxer.util:parse"
 
+[tool.poetry.group.dev]
+optional = true
+
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
+flake8 = "^6.0.0"
 
 [tool.black]
 line-length = 80

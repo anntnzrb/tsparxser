@@ -13,25 +13,23 @@ jobs:
 
     steps:
       #----------------------------------------------
-      # Python setup
+      # Python & poetry setup
       #----------------------------------------------
     - uses: actions/checkout@v3
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: "3.10"
 
-      #----------------------------------------------
-      # poetry
-      #----------------------------------------------
     - name: Install Poetry
       uses: snok/install-poetry@v1
+
     - name: Install dependencies
       run: poetry install --no-interaction
   
       #----------------------------------------------
-      # run tests
-      #----------------------------------------------
+
     - name: Run tests
       run: |
         poetry run test

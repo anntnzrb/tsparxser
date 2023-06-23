@@ -12,8 +12,8 @@ def main():
     data: str = read_file(file)
 
     # numerical menu
-    print("1: Lex")
-    print("2: Yacc")
+    print("1: Lex (Read contents of file)")
+    print("2: Yacc (Interactive prompt)")
     choice = int(input("Choose an option: "))
 
     # create lexer and feed data
@@ -29,7 +29,7 @@ def main():
     # option 2 : yacc
     elif choice == 2:
         parser: TSParser = TSParser(lexer)
-        parser.run(prompt="TSParser> ")
+        parser.run("TSParser> ")
     else:
         print("Invalid choice")
 

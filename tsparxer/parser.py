@@ -5,13 +5,19 @@ from typing import Tuple
 from .lexer import Lexer as TSLexer
 
 
+class ParserSyntaxError(Exception):
+    def __init__(self, p):
+        self.p = p
+        super().__init__(f"Syntax error in input '{p}'!")
+
+
 class Parser:
     tokens: Tuple[str] = TSLexer.tokens
 
     def p_assignment(self, p: YaccProduction) -> None:
         """
-        assignment : LET ID EQUALS assignment_value
-                   | LET ID COLON data_type EQUALS assignment_value
+        assignment : LET ID EQUALS assignment_value SEMICOLON
+                   | LET ID COLON data_type EQUALS assignment_value SEMICOLON
         """
 
     def p_data_type(self, p: YaccProduction) -> None:
@@ -30,13 +36,16 @@ class Parser:
         """
 
     def p_error(self, p: YaccProduction) -> None:
-        print(f"Syntax error in input '{p}'!")
+        raise ParserSyntaxError(p)
 
     # -------------------------------------------------------------------------
 
     def __init__(self, lexer: TSLexer) -> None:
         self.lexer = lexer
-        self.parser = plyacc.yacc(module=self, debug=True)
+        self.parser = plyacc.yacc(module=self)
+
+    def parse(self, input: str):
+        self.parser.parse(input, self.lexer)
 
     def run(self, prompt: str):
         while True:
@@ -44,7 +53,7 @@ class Parser:
                 s = input(prompt)
                 if not s:
                     continue
-                self.parser.parse(s, self.lexer)
+                self.parse(s)
             except EOFError:
                 break
             except Exception as e:

@@ -16,8 +16,8 @@ class Parser:
 
     def p_assignment(self, p: YaccProduction) -> None:
         """
-        assignment : LET ID EQUALS assignment_value SEMICOLON
-                   | LET ID COLON data_type EQUALS assignment_value SEMICOLON
+        assignment : assignment_type ID EQUALS assignment_value SEMICOLON
+                   | assignment_type ID COLON data_type EQUALS assignment_value SEMICOLON
         """
 
     def p_data_type(self, p: YaccProduction) -> None:
@@ -25,6 +25,12 @@ class Parser:
         data_type : TYPE_BOOLEAN
                   | TYPE_NUMBER
                   | TYPE_STRING
+        """
+
+    def p_assignment_type(self, p: YaccProduction) -> None:
+        """
+        assignment_type : LET
+                        | CONST
         """
 
     def p_assignment_value(self, p: YaccProduction) -> None:

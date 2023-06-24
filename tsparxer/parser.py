@@ -6,8 +6,7 @@ from .lexer import Lexer as TSLexer
 
 
 class ParserSyntaxError(Exception):
-    def __init__(self, p):
-        self.p = p
+    def __init__(self, p: YaccProduction):
         super().__init__(f"Syntax error in input '{p}'!")
 
 

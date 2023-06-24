@@ -30,6 +30,7 @@ class Parser:
         """
         assignment_type : LET
                         | CONST
+                        | VAR
         """
 
     def p_assignment_value(self, p: YaccProduction) -> None:

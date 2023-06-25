@@ -45,7 +45,6 @@ class Parser:
         """
         function_body : RETURN assignment_value SEMICOLON
         """
-    
 
     def p_data_type(self, p: YaccProduction) -> None:
         """
@@ -68,7 +67,7 @@ class Parser:
                          | TRUE
                          | FALSE
         """
-    
+
     def p_comparative_operators(self, p: YaccProduction) -> None:
         """
         comparative_operator : EQUALSEQUALS
@@ -81,7 +80,6 @@ class Parser:
         """
 
     def p_logical_operators(self, p: YaccProduction) -> None:
-        
         """
         logical_operators : AMPERSANDAMPERSAND
         | OROR

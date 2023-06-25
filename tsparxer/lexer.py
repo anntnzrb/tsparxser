@@ -36,6 +36,7 @@ class Lexer:
             "from",
             # Paul
             "console",
+            "interface",
             "error",
             "log",
             "return",

@@ -17,7 +17,12 @@ class Parser:
         """
         assignment : assignment_type ID EQUALS assignment_value SEMICOLON
                    | assignment_type ID COLON data_type EQUALS assignment_value SEMICOLON
+                   | assignment_type ID EQUALS calculates SEMICOLON
         """
+
+# -----------------------------------------------------------------------------
+#   OBJECT
+# -----------------------------------------------------------------------------
 
     def p_assigment_object(self, p: YaccProduction) -> None:
         """
@@ -30,22 +35,76 @@ class Parser:
         | ID COLON data_type SEMICOLON object_value
         """
 
+# -----------------------------------------------------------------------------
+#   IF
+# -----------------------------------------------------------------------------
+
+    def p_if(self, p: YaccProduction) -> None:
+        """
+        assignment : IF OPENPAREN if_condition CLOSEPAREN OPENBRACE CLOSEBRACE
+        """
+
+    def p_if_condition(self, p: YaccProduction) -> None:
+        """
+        if_condition : if_condition_values
+        | logical_exclamation OPENPAREN if_condition_values CLOSEPAREN
+        """
+
+    def p_if_condition_values(self, p: YaccProduction) -> None:
+        """
+        if_condition_values : STRINGCONTENT
+        | if_logical
+        """
+
+    def p_if_logical(self, p: YaccProduction) -> None:
+        """
+        if_logical : logical_values
+        | logical_values logical_operators logical_values
+        | logical_values logical_operators logical_values logical_operators if_logical
+        """
+
+    def p_if_logical_values(self, p: YaccProduction) -> None:
+        """
+        logical_values : ID
+        | boolean_value
+        | if_comparative
+        """
+
+    def p_if_comparative(self, p: YaccProduction) -> None:
+        """
+        if_comparative : comparative_values comparative_operator comparative_values
+        | STRINGCONTENT EQUALSEQUALS STRINGCONTENT
+        | STRINGCONTENT EQUALSEQUALSEQUALS STRINGCONTENT
+        """
+
+    def p_if_comparative_values(self, p: YaccProduction) -> None:
+        """
+        comparative_values : ID
+        | NUMBER
+        """
+
+# -----------------------------------------------------------------------------
+#   FUNCTION
+# -----------------------------------------------------------------------------
+
     def p_assigment_function(self, p: YaccProduction) -> None:
         """
-        assignment : CONST ID EQUALS FUNCTION OPENPAREN function_parameter CLOSEPAREN COLON data_type OPENBRACE function_body CLOSEBRACE
+        assignment : CONST ID EQUALS FUNCTION OPENPAREN function_parameter CLOSEPAREN COLON data_type OPENBRACE function_body CLOSEBRACE SEMICOLON
         """
 
     def p_function_parameter(self, p: YaccProduction) -> None:
         """
         function_parameter : ID COLON data_type
-        | ID COLON data_type COMMA function_parameter
+                           | ID COLON data_type COMMA function_parameter
         """
 
     def p_function_body(self, p: YaccProduction) -> None:
         """
-        function_body : RETURN assignment_value SEMICOLON
+        function_body : assignment RETURN ID SEMICOLON
         """
-
+# -----------------------------------------------------------------------------
+#   TERMINALES
+# -----------------------------------------------------------------------------
     def p_data_type(self, p: YaccProduction) -> None:
         """
         data_type : TYPE_BOOLEAN
@@ -71,20 +130,45 @@ class Parser:
     def p_comparative_operators(self, p: YaccProduction) -> None:
         """
         comparative_operator : EQUALSEQUALS
-        | EQUALSEQUALSEQUALS
-        | EXCLAMATIONEQUALS
-        | LESSTHAN
-        | LESSTHANEQUALS
-        | GREATERTHAN
-        | GREATERTHANEQUALS
+                             | EQUALSEQUALSEQUALS
+                             | EXCLAMATIONEQUALS
+                             | LESSTHAN
+                             | LESSTHANEQUALS
+                             | GREATERTHAN
+                             | GREATERTHANEQUALS
+        """
+
+    def p_boolean_value(self, p: YaccProduction) -> None:
+        """
+        boolean_value : TRUE
+        | FALSE
         """
 
     def p_logical_operators(self, p: YaccProduction) -> None:
         """
         logical_operators : AMPERSANDAMPERSAND
-        | OROR
-        | EXCLAMATION
+                          | OROR
         """
+
+    def p_logical_exclamation(self, p: YaccProduction) -> None:
+        """
+        logical_exclamation : EXCLAMATION
+        """
+
+    def p_basic_operators(self, p: YaccProduction) -> None:
+        """
+        basic_operators : PLUS
+        | MINUS
+        | MULTIPLY
+        | DIVIDE
+        | MODULO
+        | XOR
+        """
+    def p_calculates(self, p: YaccProduction) -> None:
+        """
+        calculates : ID
+        | ID basic_operators calculates
+        """ 
 
     def p_error(self, p: YaccProduction) -> None:
         raise ParserSyntaxError(p)

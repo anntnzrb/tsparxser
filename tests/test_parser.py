@@ -44,12 +44,34 @@ class TestParser(unittest.TestCase):
             ("let y: number = 10;", True),
             (r'let z: string = "test";', True),
             (r"let z = 'test';", True),
+            # #Object
+            # ("interface Person { name: string; age: number;}", True),
+            # ("interface Animal { type: string; legs: boolean;}", True),
+            # ("interface Country { name: string; poblation: number;}", True),
+            # #if
+            # ("if ( 8 > 5 && false ){ }", True),
+            # ("if ( true ){ }", True),
+            # (r'if ( " " ){ }', True),
+            # #function
+            # ("const multiply = function(a: number, b: number): number {let result = a * b; return result;};", True),
+            # ("const union = function(a: string, b: string): string {let result = a + b; return result;};", True),
             # invalid
             ("let x = 5", False),
             ("let x = ;", False),
             ("let y: unknown_type = 'test';", False),
             (r"let z: = 'test';", False),
             ("let", False),
+            # #Object
+            # ("interface Person { }", False),
+            # ("Person { name: string; age: number; }", False),
+            # ("let Person { name: string; age: number; }", False),
+            # #if
+            # ("if ( !true ){ }", False),
+            # ("if ( 1 ){ }", False),
+            # ("if ( && ){ }", False),
+            # #function
+            # ("const multiply = function(a: number, b: number): number {result = a * b; return result;};", False),
+            # ("const union = function(a: string, b: string): string {let result = a + b, return result;};", False),
         ]
 
         self.run_test(tests)

@@ -19,6 +19,34 @@ class Parser:
                    | assignment_type ID COLON data_type EQUALS assignment_value SEMICOLON
         """
 
+    def p_assigment_object(self, p: YaccProduction) -> None:
+        """
+        assignment : INTERFACE ID OPENBRACE object_value CLOSEBRACE
+        """
+
+    def p_object_value(self, p: YaccProduction) -> None:
+        """
+        object_value : ID COLON data_type SEMICOLON
+        | ID COLON data_type SEMICOLON object_value
+        """
+
+    def p_assigment_function(self, p: YaccProduction) -> None:
+        """
+        assignment : CONST ID EQUALS FUNCTION OPENPAREN function_parameter CLOSEPAREN COLON data_type OPENBRACE function_body CLOSEBRACE
+        """
+
+    def p_function_parameter(self, p: YaccProduction) -> None:
+        """
+        function_parameter : ID COLON data_type
+        | ID COLON data_type COMMA function_parameter
+        """
+
+    def p_function_body(self, p: YaccProduction) -> None:
+        """
+        function_body : RETURN assignment_value SEMICOLON
+        """
+    
+
     def p_data_type(self, p: YaccProduction) -> None:
         """
         data_type : TYPE_BOOLEAN
@@ -39,6 +67,25 @@ class Parser:
                          | NUMBER
                          | TRUE
                          | FALSE
+        """
+    
+    def p_comparative_operators(self, p: YaccProduction) -> None:
+        """
+        comparative_operator : EQUALSEQUALS
+        | EQUALSEQUALSEQUALS
+        | EXCLAMATIONEQUALS
+        | LESSTHAN
+        | LESSTHANEQUALS
+        | GREATERTHAN
+        | GREATERTHANEQUALS
+        """
+
+    def p_logical_operators(self, p: YaccProduction) -> None:
+        
+        """
+        logical_operators : AMPERSANDAMPERSAND
+        | OROR
+        | EXCLAMATION
         """
 
     def p_error(self, p: YaccProduction) -> None:

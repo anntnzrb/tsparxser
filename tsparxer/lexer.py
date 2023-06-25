@@ -132,7 +132,7 @@ class Lexer:
     t_OR: str = r"\|"
     t_OROR: str = r"\|\|"
     t_XOR: str = r"\^"
-    t_EXCLAMATION : str = r"!"
+    t_EXCLAMATION: str = r"!"
     t_EXCLAMATIONEQUALS: str = r"!="
     t_LESSTHAN: str = r"<"
     t_LESSTHANEQUALS: str = r"<="

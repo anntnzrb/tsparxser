@@ -69,8 +69,8 @@ class TestParser(unittest.TestCase):
 
     def test_parser_if(self) -> None:
         tests = [
-            # valid
             # FIXME
+            # valid
             # (r'if ( 8 > 5 && false ){ console.log("Verdadero"); }', True),
             # (r'if ( true ){ console.log("Verdadero"); }', True),
             # (r'if ( " " ){ console.log("Verdadero"); }', True),
@@ -81,16 +81,23 @@ class TestParser(unittest.TestCase):
         ]
         self.run_test(tests)
 
-    # def test_parser_function(self) -> None:
-    #     tests = [
-    #         # valid
-    #         ("const multiply = function(a: number, b: number): number {let result = a * b; return result;};", True),
-    #         ("const union = function(a: string, b: string): string {let result = a + b; return result;};", True),
-    #         # invalid
-    #         ("const multiply = function(a: number, b: number): number {result = a * b; return result;};", False),
-    #         ("const union = function(a: string, b: string): string {let result = a + b, return result;};", False),
-    #     ]
-    #     self.run_test(tests)
+    def test_parser_function(self) -> None:
+        tests = [
+            # FIXME
+            # valid
+            # ("const multiply = function(a: number, b: number): number {let result = a * b; return result;};", True),
+            # ("const union = function(a: string, b: string): string {let result = a + b; return result;};", True),
+            # invalid
+            (
+                "const multiply = function(a: number, b: number): number {result = a * b; return result;};",
+                False,
+            ),
+            (
+                "const union = function(a: string, b: string): string {let result = a + b, return result;};",
+                False,
+            ),
+        ]
+        self.run_test(tests)
 
 
 if __name__ == "__main__":

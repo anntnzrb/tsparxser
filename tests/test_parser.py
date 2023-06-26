@@ -83,8 +83,14 @@ class TestParser(unittest.TestCase):
     def test_parser_function(self) -> None:
         tests = [
             # valid
-            ("const multiply = function(a: number, b: number): number {let result = a * b; return result;};", True),
-            ("const union = function(a: string, b: string): string {let result = a + b; return result;};", True),
+            (
+                "const multiply = function(a: number, b: number): number {let result = a * b; return result;};",
+                True,
+            ),
+            (
+                "const union = function(a: string, b: string): string {let result = a + b; return result;};",
+                True,
+            ),
             # invalid
             (
                 "const multiply = function(a: number, b: number): number {result = a * b; return result;};",

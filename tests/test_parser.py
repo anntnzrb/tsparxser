@@ -69,11 +69,10 @@ class TestParser(unittest.TestCase):
 
     def test_parser_if(self) -> None:
         tests = [
-            # FIXME
             # valid
-            # (r'if ( 8 > 5 && false ){ console.log("Verdadero"); }', True),
-            # (r'if ( true ){ console.log("Verdadero"); }', True),
-            # (r'if ( " " ){ console.log("Verdadero"); }', True),
+            (r'if ( 8 > 5 && false ){ console.log("Verdadero"); }', True),
+            (r'if ( true ){ console.log("Verdadero"); }', True),
+            (r'if ( " " ){ console.log("Verdadero"); }', True),
             # invalid
             ("if ( !true ){ }", False),
             ("if ( 1 ){ }", False),
@@ -83,10 +82,9 @@ class TestParser(unittest.TestCase):
 
     def test_parser_function(self) -> None:
         tests = [
-            # FIXME
             # valid
-            # ("const multiply = function(a: number, b: number): number {let result = a * b; return result;};", True),
-            # ("const union = function(a: string, b: string): string {let result = a + b; return result;};", True),
+            ("const multiply = function(a: number, b: number): number {let result = a * b; return result;};", True),
+            ("const union = function(a: string, b: string): string {let result = a + b; return result;};", True),
             # invalid
             (
                 "const multiply = function(a: number, b: number): number {result = a * b; return result;};",

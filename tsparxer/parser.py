@@ -113,6 +113,8 @@ class Parser:
         """
         assignment : assignment_type ID EQUALS assignment_value SEMICOLON
                    | assignment_type ID COLON data_type EQUALS assignment_value SEMICOLON
+                   | assignment_type ID EQUALS calculates SEMICOLON
+                   | CONSOLE DOT LOG OPENPAREN assignment_value CLOSEPAREN SEMICOLON
         """
 
     def p_data_type(self, p: YaccProduction) -> None:
@@ -164,7 +166,22 @@ class Parser:
         logical_operators : AMPERSANDAMPERSAND
                           | OROR
         """
+    # No se añadio    
+    def p_basic_operators(self, p: YaccProduction) -> None:
+        """
+        basic_operators : PLUS
+        | MINUS
+        | MULTIPLY
+        | DIVIDE
+        | MODULO
+        | XOR
+        """
 
+    def p_calculates(self, p: YaccProduction) -> None:
+        """
+        calculates : ID
+        | ID basic_operators calculates
+        """
     # -------------------------------------------------------------------------
 
     def __init__(self, lexer: TSLexer) -> None:

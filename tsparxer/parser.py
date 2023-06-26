@@ -166,7 +166,8 @@ class Parser:
         logical_operators : AMPERSANDAMPERSAND
                           | OROR
         """
-    # No se añadio    
+
+    # No se añadio
     def p_basic_operators(self, p: YaccProduction) -> None:
         """
         basic_operators : PLUS
@@ -182,6 +183,7 @@ class Parser:
         calculates : ID
         | ID basic_operators calculates
         """
+
     # -------------------------------------------------------------------------
 
     def __init__(self, lexer: TSLexer) -> None:

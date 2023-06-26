@@ -43,10 +43,10 @@ class Parser:
 
     def p_assignment_values(self, p: YaccProduction) -> None:
         """
-        assignment_values : assignment_value 
+        assignment_values : assignment_value
                           | assignment_value COMMA assignment_values
         """
-    
+
     def p_array(self, p: YaccProduction) -> None:
         """
         array : OPENBRACKET  assignment_values CLOSEBRACKET
@@ -64,7 +64,7 @@ class Parser:
                   | ID GREATERTHAN NUMBER
                   | ID GREATERTHANEQUALS NUMBER
                   | ID EQUALSEQUALS NUMBER
-                  | ID EXCLAMATIONEQUALS NUMBER 
+                  | ID EXCLAMATIONEQUALS NUMBER
         """
 
     def p_iteration(self, p: YaccProduction) -> None:
@@ -75,7 +75,7 @@ class Parser:
 
     def p_block(self, p: YaccProduction) -> None:
         """
-        block : OPENBRACE CLOSEBRACE 
+        block : OPENBRACE CLOSEBRACE
         """
 
     def p_for_loop(self, p: YaccProduction) -> None:
@@ -85,12 +85,12 @@ class Parser:
 
     def p_parameter(self, p: YaccProduction) -> None:
         """
-        parameter : ID COLON data_type 
+        parameter : ID COLON data_type
         """
-    
+
     def p_parameters(self, p: YaccProduction) -> None:
         """
-        parameters : parameter 
+        parameters : parameter
                    | parameter COMMA parameters
         """
 

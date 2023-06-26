@@ -54,6 +54,19 @@ class TestParser(unittest.TestCase):
 
         self.run_test(tests)
 
+    def test_parser_object(self) -> None:
+        tests = [
+            # valid
+            ("interface Person { name: string; age: number;}", True),
+            ("interface Animal { type: string; legs: boolean;}", True),
+            ("interface Country { name: string; poblation: number;}", True),
+            # invalid
+            ("interface Person { }", False),
+            ("Person { name: string; age: number; }", False),
+            ("let Person { name: string; age: number; }", False),
+        ]
+        self.run_test(tests)
+
     # def test_parser_if(self) -> None:
     #     tests = [
     #         # valid
@@ -67,18 +80,6 @@ class TestParser(unittest.TestCase):
     #     ]
     #     self.run_test(tests)
 
-    # def test_parser_object(self) -> None:
-    #     tests = [
-    #         # valid
-    #         ("interface Person { name: string; age: number;}", True),
-    #         ("interface Animal { type: string; legs: boolean;}", True),
-    #         ("interface Country { name: string; poblation: number;}", True),
-    #         # invalid
-    #         ("interface Person { }", False),
-    #         ("Person { name: string; age: number; }", False),
-    #         ("let Person { name: string; age: number; }", False),
-    #     ]
-    #     self.run_test(tests)
 
     # def test_parser_function(self) -> None:
     #     tests = [

@@ -44,6 +44,22 @@ class Parser:
     def p_error(self, p: YaccProduction) -> None:
         raise ParserSyntaxError(p)
 
+    # -----------------------------------------------------------------------------
+    # OBJECT
+    # Author: Paul
+    # -----------------------------------------------------------------------------
+
+    def p_assigment_object(self, p: YaccProduction) -> None:
+        """
+        assignment : INTERFACE ID OPENBRACE object_value CLOSEBRACE
+        """
+
+    def p_object_value(self, p: YaccProduction) -> None:
+        """
+        object_value : ID COLON data_type SEMICOLON
+                     | ID COLON data_type SEMICOLON object_value
+        """
+
     # -------------------------------------------------------------------------
 
     def __init__(self, lexer: TSLexer) -> None:

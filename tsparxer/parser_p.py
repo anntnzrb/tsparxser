@@ -18,6 +18,7 @@ class Parser:
         assignment : assignment_type ID EQUALS assignment_value SEMICOLON
                    | assignment_type ID COLON data_type EQUALS assignment_value SEMICOLON
                    | assignment_type ID EQUALS calculates SEMICOLON
+                   | CONSOLE DOT LOG OPENPAREN assignment_value CLOSEPAREN SEMICOLON
         """
 
     # -----------------------------------------------------------------------------
@@ -41,7 +42,7 @@ class Parser:
 
     def p_if(self, p: YaccProduction) -> None:
         """
-        assignment : IF OPENPAREN if_condition CLOSEPAREN OPENBRACE CLOSEBRACE
+        assignment : IF OPENPAREN if_condition CLOSEPAREN OPENBRACE assignment CLOSEBRACE
         """
 
     def p_if_condition(self, p: YaccProduction) -> None:

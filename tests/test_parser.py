@@ -70,14 +70,29 @@ class TestParser(unittest.TestCase):
     def test_parser_if(self) -> None:
         tests = [
             # valid
-            (r'if ( 8 > 5 && false ){ console.log("Verdadero"); }', True),
-            (r'if ( true ){ console.log("Verdadero"); }', True),
-            (r'if ( " " ){ console.log("Verdadero"); }', True),
+            (r"if ( 8 > 5 && false ){ let foo = bar; }", True),
+            (r"if ( true ){ let x = 1; }", True),
+            (r'if ( " " ){ let y = "foo"; }', True),
             # invalid
             ("if ( !true ){ }", False),
             ("if ( 1 ){ }", False),
             ("if ( && ){ }", False),
         ]
+
+        self.run_test(tests)
+
+    def test_parser_while(self) -> None:
+        tests = [
+            # valid
+            (r'while ( 9 > 32 && true ){ let c = "c"; }', True),
+            (r"while ( foo ){ let n: number = 10; }", True),
+            (r'while ( " " ){ let w = 11; }', True),
+            # invalid
+            ("while ( !true ){ }", False),
+            ("while ( 1 ){ }", False),
+            ("while ( && ){ }", False),
+        ]
+
         self.run_test(tests)
 
     def test_parser_function(self) -> None:
@@ -101,6 +116,7 @@ class TestParser(unittest.TestCase):
                 False,
             ),
         ]
+
         self.run_test(tests)
 
 

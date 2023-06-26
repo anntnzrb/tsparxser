@@ -12,6 +12,26 @@ class ParserSyntaxError(Exception):
 
 class Parser:
     tokens: Tuple[str] = TSLexer.tokens
+    start = "program"
+
+    # -----------------------------------------------------------------------------
+
+    def p_program(self, p: YaccProduction) -> None:
+        """
+        program : statements
+        """
+
+    def p_statement(self, p: YaccProduction) -> None:
+        """
+        statement : assignment
+                  | control_structure
+        """
+
+    def p_statements(self, p: YaccProduction) -> None:
+        """
+        statements : statement
+                   | statement statements
+        """
 
     def p_error(self, p: YaccProduction) -> None:
         raise ParserSyntaxError(p)
@@ -37,47 +57,49 @@ class Parser:
     # Control Structures
     # -----------------------------------------------------------------------------
 
-    # IF (Paul)
+    # IF:    Paul
+    # WHILE: JA
 
-    def p_if(self, p: YaccProduction) -> None:
+    def p_control_structure(self, p: YaccProduction) -> None:
         """
-        assignment : IF OPENPAREN if_condition CLOSEPAREN OPENBRACE assignment CLOSEBRACE
-        """
-
-    def p_if_condition(self, p: YaccProduction) -> None:
-        """
-        if_condition : if_condition_values
-                     | logical_exclamation OPENPAREN if_condition_values CLOSEPAREN
+        control_structure : IF OPENPAREN condition CLOSEPAREN OPENBRACE statements CLOSEBRACE
+                          | WHILE OPENPAREN condition CLOSEPAREN OPENBRACE statements CLOSEBRACE
         """
 
-    def p_if_condition_values(self, p: YaccProduction) -> None:
+    def p_condition(self, p: YaccProduction) -> None:
         """
-        if_condition_values : STRINGCONTENT
-                            | if_logical
-        """
-
-    def p_if_logical(self, p: YaccProduction) -> None:
-        """
-        if_logical : logical_values
-                   | logical_values logical_operators logical_values
-                   | logical_values logical_operators logical_values logical_operators if_logical
+        condition : condition_values
+                  | logical_exclamation OPENPAREN condition_values CLOSEPAREN
         """
 
-    def p_if_logical_values(self, p: YaccProduction) -> None:
+    def p_condition_values(self, p: YaccProduction) -> None:
+        """
+        condition_values : STRINGCONTENT
+                         | logical
+        """
+
+    def p_logical(self, p: YaccProduction) -> None:
+        """
+        logical : logical_values
+                | logical_values logical_operators logical_values
+                | logical_values logical_operators logical_values logical_operators logical
+        """
+
+    def p_logical_values(self, p: YaccProduction) -> None:
         """
         logical_values : ID
                        | boolean_value
-                       | if_comparative
+                       | comparative
         """
 
-    def p_if_comparative(self, p: YaccProduction) -> None:
+    def p_comparative(self, p: YaccProduction) -> None:
         """
-        if_comparative : comparative_values comparative_operator comparative_values
-                       | STRINGCONTENT EQUALSEQUALS STRINGCONTENT
-                       | STRINGCONTENT EQUALSEQUALSEQUALS STRINGCONTENT
+        comparative : comparative_values comparative_operator comparative_values
+                    | STRINGCONTENT EQUALSEQUALS STRINGCONTENT
+                    | STRINGCONTENT EQUALSEQUALSEQUALS STRINGCONTENT
         """
 
-    def p_if_comparative_values(self, p: YaccProduction) -> None:
+    def p_comparative_values(self, p: YaccProduction) -> None:
         """
         comparative_values : ID
                            | NUMBER
@@ -114,14 +136,6 @@ class Parser:
         assignment : assignment_type ID EQUALS assignment_value SEMICOLON
                    | assignment_type ID COLON data_type EQUALS assignment_value SEMICOLON
                    | assignment_type ID EQUALS calculates SEMICOLON
-                   | CONSOLE DOT LOG OPENPAREN assignment_value CLOSEPAREN SEMICOLON
-        """
-
-    def p_data_type(self, p: YaccProduction) -> None:
-        """
-        data_type : TYPE_BOOLEAN
-                  | TYPE_NUMBER
-                  | TYPE_STRING
         """
 
     def p_assignment_type(self, p: YaccProduction) -> None:
@@ -129,6 +143,13 @@ class Parser:
         assignment_type : LET
                         | CONST
                         | VAR
+        """
+
+    def p_data_type(self, p: YaccProduction) -> None:
+        """
+        data_type : TYPE_BOOLEAN
+                  | TYPE_NUMBER
+                  | TYPE_STRING
         """
 
     def p_assignment_value(self, p: YaccProduction) -> None:
@@ -167,21 +188,20 @@ class Parser:
                           | OROR
         """
 
-    # No se añadio
     def p_basic_operators(self, p: YaccProduction) -> None:
         """
         basic_operators : PLUS
-        | MINUS
-        | MULTIPLY
-        | DIVIDE
-        | MODULO
-        | XOR
+                        | MINUS
+                        | MULTIPLY
+                        | DIVIDE
+                        | MODULO
+                        | XOR
         """
 
     def p_calculates(self, p: YaccProduction) -> None:
         """
         calculates : ID
-        | ID basic_operators calculates
+                   | ID basic_operators calculates
         """
 
     # -------------------------------------------------------------------------

@@ -60,6 +60,97 @@ class Parser:
                      | ID COLON data_type SEMICOLON object_value
         """
 
+    # -----------------------------------------------------------------------------
+    # IF
+    # Author: Paul
+    # -----------------------------------------------------------------------------
+
+    def p_if(self, p: YaccProduction) -> None:
+        """
+        assignment : IF OPENPAREN if_condition CLOSEPAREN OPENBRACE assignment CLOSEBRACE
+        """
+
+    def p_if_condition(self, p: YaccProduction) -> None:
+        """
+        if_condition : if_condition_values
+                     | logical_exclamation OPENPAREN if_condition_values CLOSEPAREN
+        """
+
+    def p_if_condition_values(self, p: YaccProduction) -> None:
+        """
+        if_condition_values : STRINGCONTENT
+                            | if_logical
+        """
+
+    def p_if_logical(self, p: YaccProduction) -> None:
+        """
+        if_logical : logical_values
+                   | logical_values logical_operators logical_values
+                   | logical_values logical_operators logical_values logical_operators if_logical
+        """
+
+    def p_if_logical_values(self, p: YaccProduction) -> None:
+        """
+        logical_values : ID
+                       | boolean_value
+                       | if_comparative
+        """
+
+    def p_if_comparative(self, p: YaccProduction) -> None:
+        """
+        if_comparative : comparative_values comparative_operator comparative_values
+                       | STRINGCONTENT EQUALSEQUALS STRINGCONTENT
+                       | STRINGCONTENT EQUALSEQUALSEQUALS STRINGCONTENT
+        """
+
+    def p_if_comparative_values(self, p: YaccProduction) -> None:
+        """
+        comparative_values : ID
+                           | NUMBER
+        """
+
+    # -----------------------------------------------------------------------------
+    # TERMINALES
+    # -----------------------------------------------------------------------------
+
+    def p_logical_exclamation(self, p: YaccProduction) -> None:
+        """
+        logical_exclamation : EXCLAMATION
+        """
+
+    def p_basic_operators(self, p: YaccProduction) -> None:
+        """
+        basic_operators : PLUS
+                        | MINUS
+                        | MULTIPLY
+                        | DIVIDE
+                        | MODULO
+                        | XOR
+        """
+
+    def p_comparative_operators(self, p: YaccProduction) -> None:
+        """
+        comparative_operator : EQUALSEQUALS
+                             | EQUALSEQUALSEQUALS
+                             | EXCLAMATIONEQUALS
+                             | LESSTHAN
+                             | LESSTHANEQUALS
+                             | GREATERTHAN
+                             | GREATERTHANEQUALS
+        """
+
+    def p_boolean_value(self, p: YaccProduction) -> None:
+        """
+        boolean_value : TRUE
+                      | FALSE
+        """
+
+    def p_logical_operators(self, p: YaccProduction) -> None:
+        """
+        logical_operators : AMPERSANDAMPERSAND
+                          | OROR
+        """
+
     # -------------------------------------------------------------------------
 
     def __init__(self, lexer: TSLexer) -> None:

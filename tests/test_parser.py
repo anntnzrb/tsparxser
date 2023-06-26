@@ -67,19 +67,19 @@ class TestParser(unittest.TestCase):
         ]
         self.run_test(tests)
 
-    # def test_parser_if(self) -> None:
-    #     tests = [
-    #         # valid
-    #         (r'if ( 8 > 5 && false ){ console.log("Verdadero"); }', True),
-    #         (r'if ( true ){ console.log("Verdadero"); }', True),
-    #         (r'if ( " " ){ console.log("Verdadero"); }', True),
-    #         # invalid
-    #         ("if ( !true ){ }", False),
-    #         ("if ( 1 ){ }", False),
-    #         ("if ( && ){ }", False),
-    #     ]
-    #     self.run_test(tests)
-
+    def test_parser_if(self) -> None:
+        tests = [
+            # valid
+            # FIXME
+            # (r'if ( 8 > 5 && false ){ console.log("Verdadero"); }', True),
+            # (r'if ( true ){ console.log("Verdadero"); }', True),
+            # (r'if ( " " ){ console.log("Verdadero"); }', True),
+            # invalid
+            ("if ( !true ){ }", False),
+            ("if ( 1 ){ }", False),
+            ("if ( && ){ }", False),
+        ]
+        self.run_test(tests)
 
     # def test_parser_function(self) -> None:
     #     tests = [

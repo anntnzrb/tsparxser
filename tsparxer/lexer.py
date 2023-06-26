@@ -103,7 +103,7 @@ class Lexer:
             "DOT",
             "WHITESPACE",
             "COMMENT",
-            "ARROW"
+            "ARROW",
         )
         + tuple(keywords.values())
         + tuple(dataTypes.values())

@@ -103,6 +103,7 @@ class Lexer:
             "DOT",
             "WHITESPACE",
             "COMMENT",
+            "ARROW"
         )
         + tuple(keywords.values())
         + tuple(dataTypes.values())
@@ -146,7 +147,7 @@ class Lexer:
     t_MINUSMINUS: str = r"--"
     t_DOT: str = r"\."
     t_WHITESPACE: str = r"\s"
-
+    t_ARROW: str = r"=>"
     # ignored characters
     t_ignore: str = " \t"
 

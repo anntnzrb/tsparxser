@@ -107,7 +107,7 @@ class TestParser(unittest.TestCase):
     # Function Declarations
     # -----------------------------------------------------------------------------
 
-    def test_parser_function_dclr_var(self) -> None:
+    def test_parser_function_decl_var(self) -> None:
         tests = [
             # valid
             (
@@ -135,7 +135,7 @@ class TestParser(unittest.TestCase):
 
         self.run_test(tests)
 
-    def test_parser_function_dclr_keyword(self) -> None:
+    def test_parser_function_decl_keyword(self) -> None:
         tests = [
             # valid
             (
@@ -163,7 +163,7 @@ class TestParser(unittest.TestCase):
 
         self.run_test(tests)
 
-    def test_parser_function_dclr_arrow(self) -> None:
+    def test_parser_function_decl_arrow(self) -> None:
         tests = [
             # valid
             (

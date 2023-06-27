@@ -89,10 +89,11 @@ class TestParser(unittest.TestCase):
             ("arreglo: number[] = [1,2,3];", False),
             ("let arreglo: [] = [1,5]", False),
             ("let arreglo: number[] = [1,2,3,4]", False),
-            (r"let arreglo: string] = ['hola','mundo'];",False),
-            (r"let arreglo: string] = 'hola','mundo';",False),
+            (r"let arreglo: string] = ['hola','mundo'];", False),
+            (r"let arreglo: string] = 'hola','mundo';", False),
         ]
         self.run_test(tests)
+
     # -----------------------------------------------------------------------------
     # Control Structures
     # -----------------------------------------------------------------------------
@@ -129,9 +130,18 @@ class TestParser(unittest.TestCase):
         tests = [
             # valid
             (r"for(let index = 1;index<=10;index++){let foo = 'bar';};", True),
-            (r"for(let index = 1;index>=5;index--){var n: number = 10;};", True),
-            (r"for(let index = 1;index>=5;++index){var n: number = 10;};", True),
-            (r'for(let numero: number = 20; numero==100; numero++){var y = "foo";};', True),
+            (
+                r"for(let index = 1;index>=5;index--){var n: number = 10;};",
+                True,
+            ),
+            (
+                r"for(let index = 1;index>=5;++index){var n: number = 10;};",
+                True,
+            ),
+            (
+                r'for(let numero: number = 20; numero==100; numero++){var y = "foo";};',
+                True,
+            ),
             # invalid
             (r"for let index = 1;10<=index;index++){let foo = bar; };", False),
             (r"for (let index = 1,10<=index,index++){ let foo = bar;};", False),

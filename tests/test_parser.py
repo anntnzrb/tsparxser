@@ -37,7 +37,7 @@ class TestParser(unittest.TestCase):
     # Tests
     # -------------------------------------------------------------------------
 
-    def test_valid_and_invalid_inputs(self) -> None:
+    def test_parser_assignment(self) -> None:
         tests = [
             # valid
             ("let x = 5;", True),
@@ -54,6 +54,10 @@ class TestParser(unittest.TestCase):
 
         self.run_test(tests)
 
+    # -----------------------------------------------------------------------------
+    # Data Types
+    # -----------------------------------------------------------------------------
+
     def test_parser_object(self) -> None:
         tests = [
             # valid
@@ -66,6 +70,10 @@ class TestParser(unittest.TestCase):
             ("let Person { name: string; age: number; }", False),
         ]
         self.run_test(tests)
+
+    # -----------------------------------------------------------------------------
+    # Control Structures
+    # -----------------------------------------------------------------------------
 
     def test_parser_if(self) -> None:
         tests = [
@@ -94,6 +102,10 @@ class TestParser(unittest.TestCase):
         ]
 
         self.run_test(tests)
+
+    # -----------------------------------------------------------------------------
+    # Function Declarations
+    # -----------------------------------------------------------------------------
 
     def test_parser_function_dclr_var(self) -> None:
         tests = [
@@ -145,6 +157,34 @@ class TestParser(unittest.TestCase):
             ),
             (
                 "function union(a: string, b: string): string { let result = a + b, return result; }",
+                False,
+            ),
+        ]
+
+        self.run_test(tests)
+
+    def test_parser_function_dclr_arrow(self) -> None:
+        tests = [
+            # valid
+            (
+                "const multiply = (a: number, b: number): number => { let result = a * b; return result; }",
+                True,
+            ),
+            (
+                "const union = (a: string, b: string) => { let result = a + b; return result; }",
+                True,
+            ),
+            # invalid
+            (
+                "const union = (a: string, b: string): => { let result = a + b; return result; }",
+                False,
+            ),
+            (
+                "const multiply = (a: number, b: number): number => { result = a * b; return result; }",
+                False,
+            ),
+            (
+                "const union = (a: string, b: string): string => { let result = a + b, return result; }",
                 False,
             ),
         ]

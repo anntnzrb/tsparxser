@@ -148,6 +148,7 @@ class Lexer:
     t_DOT: str = r"\."
     t_WHITESPACE: str = r"\s"
     t_ARROW: str = r"=>"
+
     # ignored characters
     t_ignore: str = " \t"
 

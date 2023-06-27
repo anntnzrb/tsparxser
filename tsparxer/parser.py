@@ -116,11 +116,13 @@ class Parser:
 
     # fn decl var:     Paul
     # fn decl keyword: JA
+    # fn decl arrow:   Christopher
 
     def p_assigment_function(self, p: YaccProduction) -> None:
         """
         assignment : CONST ID EQUALS FUNCTION OPENPAREN function_parameter CLOSEPAREN return_type OPENBRACE function_body CLOSEBRACE SEMICOLON
-                    | FUNCTION ID OPENPAREN function_parameter CLOSEPAREN return_type OPENBRACE function_body CLOSEBRACE
+                   | FUNCTION ID OPENPAREN function_parameter CLOSEPAREN return_type OPENBRACE function_body CLOSEBRACE
+                   | CONST ID EQUALS OPENPAREN function_parameter CLOSEPAREN return_type ARROW OPENBRACE function_body CLOSEBRACE
         """
 
     def p_function_parameter(self, p: YaccProduction) -> None:

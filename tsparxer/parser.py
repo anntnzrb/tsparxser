@@ -33,6 +33,7 @@ class Parser:
         """
         statement : assignment_var
                   | control_structure
+                  | data_structure
                   | assignment_function
         """
 
@@ -56,17 +57,21 @@ class Parser:
 
     # OBJECT (Paul)
 
-    # TODO: review
-    # def p_assignment_object(self, p: YaccProduction) -> None:
-    #     """
-    #     assignment : INTERFACE ID OPENBRACE object_value CLOSEBRACE
-    #     """
+    def p_data_structure(self, p: YaccProduction) -> None:
+        """
+        data_structure : assignment_object
+        """
 
-    # def p_object_value(self, p: YaccProduction) -> None:
-    #     """
-    #     object_value : ID COLON data_type SEMICOLON
-    #                  | ID COLON data_type SEMICOLON object_value
-    #     """
+    def p_assignment_object(self, p: YaccProduction) -> None:
+        """
+        assignment_object : INTERFACE ID OPENBRACE object_value CLOSEBRACE
+        """
+
+    def p_object_value(self, p: YaccProduction) -> None:
+        """
+        object_value : ID COLON data_type SEMICOLON
+                     | ID COLON data_type SEMICOLON object_value
+        """
 
     # -----------------------------------------------------------------------------
     # Control Structures

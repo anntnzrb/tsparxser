@@ -66,7 +66,7 @@ class TestParser(unittest.TestCase):
     # Data Types
     # -----------------------------------------------------------------------------
 
-    def est_parser_object(self) -> None:
+    def test_parser_object(self) -> None:
         tests = [
             # valid
             ("interface Person { name: string; age: number;}", True),
@@ -88,7 +88,7 @@ class TestParser(unittest.TestCase):
             # valid
             (r"if ( 8 > 5 && false ){ let foo = bar; }", True),
             (r"if ( true ){ let x = 1; }", True),
-            (r'if ( " " ){ let y = "foo"; }', True),
+            (r'if ( " " ){ var y = "foo"; }', True),
             # invalid
             ("if ( !true ){ }", False),
             ("if ( 1 ){ }", False),
@@ -101,7 +101,7 @@ class TestParser(unittest.TestCase):
         tests = [
             # valid
             (r'while ( 9 > 32 && true ){ let c = "c"; }', True),
-            (r"while ( foo ){ let n: number = 10; }", True),
+            (r"while ( foo ){ var n: number = 10; }", True),
             (r'while ( " " ){ let w = 11; }', True),
             # invalid
             ("while ( !true ){ }", False),

@@ -33,6 +33,11 @@ class Parser:
                    | statement statements
         """
 
+    def p_empty(self, p: YaccProduction) -> None:
+        """
+        empty :
+        """
+
     def p_error(self, p: YaccProduction) -> None:
         raise ParserSyntaxError(p)
 
@@ -113,7 +118,7 @@ class Parser:
 
     def p_assigment_function(self, p: YaccProduction) -> None:
         """
-        assignment : CONST ID EQUALS FUNCTION OPENPAREN function_parameter CLOSEPAREN COLON data_type OPENBRACE function_body CLOSEBRACE SEMICOLON
+        assignment : CONST ID EQUALS FUNCTION OPENPAREN function_parameter CLOSEPAREN return_type OPENBRACE function_body CLOSEBRACE SEMICOLON
         """
 
     def p_function_parameter(self, p: YaccProduction) -> None:
@@ -125,6 +130,12 @@ class Parser:
     def p_function_body(self, p: YaccProduction) -> None:
         """
         function_body : assignment RETURN ID SEMICOLON
+        """
+
+    def p_return_type(self, p: YaccProduction) -> None:
+        """
+        return_type : COLON data_type
+                    | empty
         """
 
     # -----------------------------------------------------------------------------

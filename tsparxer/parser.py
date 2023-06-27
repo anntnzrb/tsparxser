@@ -34,7 +34,7 @@ class Parser:
         statement : assignment_var
                   | control_structure
                   | data_structure
-                  | assignment_function
+                  | function_decl
         """
 
     def p_statements(self, p: YaccProduction) -> None:
@@ -55,22 +55,22 @@ class Parser:
     # Data Structures
     # -----------------------------------------------------------------------------
 
-    # OBJECT (Paul)
+    # OBJECT: Paul
 
     def p_data_structure(self, p: YaccProduction) -> None:
         """
-        data_structure : assignment_object
+        data_structure : structure_object
         """
 
-    def p_assignment_object(self, p: YaccProduction) -> None:
+    def p_structure_object(self, p: YaccProduction) -> None:
         """
-        assignment_object : INTERFACE ID OPENBRACE object_value CLOSEBRACE
+        structure_object : INTERFACE ID OPENBRACE structure_object_values CLOSEBRACE
         """
 
-    def p_object_value(self, p: YaccProduction) -> None:
+    def p_structure_object_values(self, p: YaccProduction) -> None:
         """
-        object_value : ID COLON data_type SEMICOLON
-                     | ID COLON data_type SEMICOLON object_value
+        structure_object_values : ID COLON data_type SEMICOLON
+                                | ID COLON data_type SEMICOLON structure_object_values
         """
 
     # -----------------------------------------------------------------------------
@@ -158,11 +158,11 @@ class Parser:
     # fn decl keyword: JA
     # fn decl arrow:   Christopher
 
-    def p_assignment_function(self, p: YaccProduction) -> None:
+    def p_function_decl(self, p: YaccProduction) -> None:
         """
-        assignment_function : CONST ID EQUALS FUNCTION OPENPAREN function_parameter CLOSEPAREN return_type OPENBRACE function_body CLOSEBRACE SEMICOLON
-                            | FUNCTION ID OPENPAREN function_parameter CLOSEPAREN return_type OPENBRACE function_body CLOSEBRACE
-                            | CONST ID EQUALS OPENPAREN function_parameter CLOSEPAREN return_type ARROW OPENBRACE function_body CLOSEBRACE
+        function_decl : CONST ID EQUALS FUNCTION OPENPAREN function_parameter CLOSEPAREN return_type OPENBRACE function_body CLOSEBRACE SEMICOLON
+                      | FUNCTION ID OPENPAREN function_parameter CLOSEPAREN return_type OPENBRACE function_body CLOSEBRACE
+                      | CONST ID EQUALS OPENPAREN function_parameter CLOSEPAREN return_type ARROW OPENBRACE function_body CLOSEBRACE
         """
 
     def p_function_parameter(self, p: YaccProduction) -> None:

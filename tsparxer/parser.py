@@ -56,11 +56,17 @@ class Parser:
     # -----------------------------------------------------------------------------
 
     # OBJECT: Paul
+    # ARRAY:  Christopher
+    # TUPLE:  JA
 
     def p_data_structure(self, p: YaccProduction) -> None:
         """
         data_structure : structure_object
+                       | structure_array
+                       | structure_tuple
         """
+
+    # Object
 
     def p_structure_object(self, p: YaccProduction) -> None:
         """
@@ -71,6 +77,36 @@ class Parser:
         """
         structure_object_values : ID COLON data_type SEMICOLON
                                 | ID COLON data_type SEMICOLON structure_object_values
+        """
+
+    # Array
+
+    def p_structure_array(self, p: YaccProduction) -> None:
+        """
+        structure_array : assignment_var_type ID COLON data_type OPENBRACKET CLOSEBRACKET EQUALS structure_array_data SEMICOLON
+        """
+
+    def p_structure_array_data(self, p: YaccProduction) -> None:
+        """
+        structure_array_data : OPENBRACKET assignment_var_values CLOSEBRACKET
+        """
+
+    # Tuple
+
+    def p_structure_tuple(self, p: YaccProduction) -> None:
+        """
+        structure_tuple : assignment_var_type ID COLON OPENBRACKET structure_tuple_type_list CLOSEBRACKET EQUALS structure_tuple_data SEMICOLON
+        """
+
+    def p_tuple_type_list(self, p: YaccProduction) -> None:
+        """
+        structure_tuple_type_list : data_type
+                                  | data_type COMMA structure_tuple_type_list
+        """
+
+    def p_structure_tuple_data(self, p: YaccProduction) -> None:
+        """
+        structure_tuple_data : OPENBRACKET assignment_var_values CLOSEBRACKET
         """
 
     # -----------------------------------------------------------------------------
@@ -216,6 +252,12 @@ class Parser:
                              | NUMBER
                              | TRUE
                              | FALSE
+        """
+
+    def p_assignment_var_values(self, p: YaccProduction) -> None:
+        """
+        assignment_var_values : assignment_var_value
+                              | assignment_var_value COMMA assignment_var_values
         """
 
     def p_logical_exclamation(self, p: YaccProduction) -> None:

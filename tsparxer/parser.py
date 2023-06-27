@@ -79,11 +79,13 @@ class Parser:
 
     # IF:    Paul
     # WHILE: JA
+    # FOR:   Christopher
 
     def p_control_structure(self, p: YaccProduction) -> None:
         """
         control_structure : IF OPENPAREN condition CLOSEPAREN OPENBRACE statements CLOSEBRACE
                           | WHILE OPENPAREN condition CLOSEPAREN OPENBRACE statements CLOSEBRACE
+                          | loop_for
         """
 
     def p_condition(self, p: YaccProduction) -> None:
@@ -114,7 +116,7 @@ class Parser:
 
     def p_comparative(self, p: YaccProduction) -> None:
         """
-        comparative : comparative_values comparative_operator comparative_values
+        comparative : comparative_values comparative_operators comparative_values
                     | STRINGCONTENT EQUALSEQUALS STRINGCONTENT
                     | STRINGCONTENT EQUALSEQUALSEQUALS STRINGCONTENT
         """
@@ -123,6 +125,29 @@ class Parser:
         """
         comparative_values : ID
                            | NUMBER
+        """
+
+    # -----------------------------------------------------------------------------
+    # for loop
+    # -----------------------------------------------------------------------------
+
+    def p_loop_for(self, p: YaccProduction) -> None:
+        """
+        loop_for : FOR OPENPAREN assignment_var_type ID EQUALS NUMBER SEMICOLON loop_for_condition SEMICOLON loop_for_var_delta CLOSEPAREN OPENBRACE statements CLOSEBRACE SEMICOLON
+        loop_for : FOR OPENPAREN assignment_var_type ID COLON data_type EQUALS NUMBER SEMICOLON loop_for_condition SEMICOLON loop_for_var_delta CLOSEPAREN OPENBRACE statements CLOSEBRACE SEMICOLON
+        """
+
+    def p_loop_for_condition(self, p: YaccProduction) -> None:
+        """
+        loop_for_condition : ID comparative_operators NUMBER
+        """
+
+    def p_loop_for_var_delta(self, p: YaccProduction) -> None:
+        """
+        loop_for_var_delta : ID PLUSPLUS
+                           | ID MINUSMINUS
+                           | PLUSPLUS ID
+                           | MINUSMINUS ID
         """
 
     # -----------------------------------------------------------------------------
@@ -200,13 +225,13 @@ class Parser:
 
     def p_comparative_operators(self, p: YaccProduction) -> None:
         """
-        comparative_operator : EQUALSEQUALS
-                             | EQUALSEQUALSEQUALS
-                             | EXCLAMATIONEQUALS
-                             | LESSTHAN
-                             | LESSTHANEQUALS
-                             | GREATERTHAN
-                             | GREATERTHANEQUALS
+        comparative_operators : EQUALSEQUALS
+                              | EQUALSEQUALSEQUALS
+                              | EXCLAMATIONEQUALS
+                              | LESSTHAN
+                              | LESSTHANEQUALS
+                              | GREATERTHAN
+                              | GREATERTHANEQUALS
         """
 
     def p_boolean_value(self, p: YaccProduction) -> None:

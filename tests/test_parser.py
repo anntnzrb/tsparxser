@@ -123,6 +123,34 @@ class TestParser(unittest.TestCase):
 
         self.run_test(tests)
 
+    def test_parser_function_dclr_keyword(self) -> None:
+        tests = [
+            # valid
+            (
+                "function multiply(a: number, b: number): number { let result = a * b; return result; }",
+                True,
+            ),
+            (
+                "function union(a: string, b: string) { let result = a + b; return result; }",
+                True,
+            ),
+            # invalid
+            (
+                "function union(a: string, b: string): { let result = a + b; return result; }",
+                False,
+            ),
+            (
+                "function multiply(a: number, b: number): number { result = a * b; return result; }",
+                False,
+            ),
+            (
+                "function union(a: string, b: string): string { let result = a + b, return result; }",
+                False,
+            ),
+        ]
+
+        self.run_test(tests)
+
 
 if __name__ == "__main__":
     unittest.main()

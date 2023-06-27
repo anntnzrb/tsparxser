@@ -114,11 +114,13 @@ class Parser:
     # Function Declarations
     # -----------------------------------------------------------------------------
 
-    # fn var decl (Paul)
+    # fn decl var:     Paul
+    # fn decl keyword: JA
 
     def p_assigment_function(self, p: YaccProduction) -> None:
         """
         assignment : CONST ID EQUALS FUNCTION OPENPAREN function_parameter CLOSEPAREN return_type OPENBRACE function_body CLOSEBRACE SEMICOLON
+                    | FUNCTION ID OPENPAREN function_parameter CLOSEPAREN return_type OPENBRACE function_body CLOSEBRACE
         """
 
     def p_function_parameter(self, p: YaccProduction) -> None:

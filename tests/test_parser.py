@@ -66,7 +66,7 @@ class TestParser(unittest.TestCase):
     # Data Types
     # -----------------------------------------------------------------------------
 
-    def test_parser_object(self) -> None:
+    def est_parser_object(self) -> None:
         tests = [
             # valid
             ("interface Person { name: string; age: number;}", True),

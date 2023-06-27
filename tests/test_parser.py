@@ -79,6 +79,20 @@ class TestParser(unittest.TestCase):
         ]
         self.run_test(tests)
 
+    def test_parser_array(self) -> None:
+        tests = [
+            # valid
+            ("let arreglo: number[] = [1,2,3,4];", True),
+            (r"let arreglo: string[] = ['hola','mundo'];", True),
+            ("let arreglo: number[] = [1];", True),
+            # invalid
+            ("arreglo: number[] = [1,2,3];", False),
+            ("let arreglo: [] = [1,5]", False),
+            ("let arreglo: number[] = [1,2,3,4]", False),
+            (r"let arreglo: string] = ['hola','mundo'];",False),
+            (r"let arreglo: string] = 'hola','mundo';",False),
+        ]
+        self.run_test(tests)
     # -----------------------------------------------------------------------------
     # Control Structures
     # -----------------------------------------------------------------------------
@@ -109,6 +123,21 @@ class TestParser(unittest.TestCase):
             ("while ( && ){ }", False),
         ]
 
+        self.run_test(tests)
+
+    def test_parser_for_loop(self) -> None:
+        tests = [
+            # valid
+            (r"for(let index = 1;index<=10;index++){let foo = 'bar';};", True),
+            (r"for(let index = 1;index>=5;index--){var n: number = 10;};", True),
+            (r"for(let index = 1;index>=5;++index){var n: number = 10;};", True),
+            (r'for(let numero: number = 20; numero==100; numero++){var y = "foo";};', True),
+            # invalid
+            (r"for let index = 1;10<=index;index++){let foo = bar; };", False),
+            (r"for (let index = 1,10<=index,index++){ let foo = bar;};", False),
+            (r"for (let index = 1;index++){let foo = bar; };", False),
+            (r"for(let index = 1;10<=index;index++);", False),
+        ]
         self.run_test(tests)
 
     # -----------------------------------------------------------------------------

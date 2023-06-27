@@ -55,7 +55,8 @@ class Parser:
 
     # OBJECT (Paul)
 
-    def p_assigment_object(self, p: YaccProduction) -> None:
+    # TODO: review
+    def p_assignment_object(self, p: YaccProduction) -> None:
         """
         assignment : INTERFACE ID OPENBRACE object_value CLOSEBRACE
         """
@@ -126,7 +127,8 @@ class Parser:
     # fn decl keyword: JA
     # fn decl arrow:   Christopher
 
-    def p_assigment_function(self, p: YaccProduction) -> None:
+    # TODO: review
+    def p_assignment_function(self, p: YaccProduction) -> None:
         """
         assignment : CONST ID EQUALS FUNCTION OPENPAREN function_parameter CLOSEPAREN return_type OPENBRACE function_body CLOSEBRACE SEMICOLON
                    | FUNCTION ID OPENPAREN function_parameter CLOSEPAREN return_type OPENBRACE function_body CLOSEBRACE
@@ -158,7 +160,7 @@ class Parser:
         """
         assignment : assignment_type ID EQUALS assignment_value SEMICOLON
                    | assignment_type ID COLON data_type EQUALS assignment_value SEMICOLON
-                   | assignment_type ID EQUALS calculates SEMICOLON
+                   | assignment_type ID EQUALS arithmetic_expression SEMICOLON
         """
 
     def p_assignment_type(self, p: YaccProduction) -> None:
@@ -211,9 +213,9 @@ class Parser:
                           | OROR
         """
 
-    def p_basic_operators(self, p: YaccProduction) -> None:
+    def p_arithmetic_operators(self, p: YaccProduction) -> None:
         """
-        basic_operators : PLUS
+        arithmetic_operators : PLUS
                         | MINUS
                         | MULTIPLY
                         | DIVIDE
@@ -221,10 +223,10 @@ class Parser:
                         | XOR
         """
 
-    def p_calculates(self, p: YaccProduction) -> None:
+    def p_arithmetic_expression(self, p: YaccProduction) -> None:
         """
-        calculates : ID
-                   | ID basic_operators calculates
+        arithmetic_expression : ID
+                              | ID arithmetic_operators arithmetic_expression
         """
 
     # -------------------------------------------------------------------------

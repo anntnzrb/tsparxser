@@ -77,21 +77,38 @@ class TestParser(unittest.TestCase):
             ("Person { name: string; age: number; }", False),
             ("let Person { name: string; age: number; }", False),
         ]
+
         self.run_test(tests)
 
     def test_parser_array(self) -> None:
         tests = [
             # valid
-            ("let arreglo: number[] = [1,2,3,4];", True),
-            (r"let arreglo: string[] = ['hola','mundo'];", True),
-            ("let arreglo: number[] = [1];", True),
+            ("let arr: number[] = [1,2,3,4];", True),
+            (r"let arr: string[] = ['hello','world'];", True),
+            ("let arr: number[] = [1];", True),
             # invalid
-            ("arreglo: number[] = [1,2,3];", False),
-            ("let arreglo: [] = [1,5]", False),
-            ("let arreglo: number[] = [1,2,3,4]", False),
-            (r"let arreglo: string] = ['hola','mundo'];", False),
-            (r"let arreglo: string] = 'hola','mundo';", False),
+            ("arr: number[] = [1,2,3];", False),
+            ("let arr: [] = [1,5]", False),
+            ("let arr: number[] = [1,2,3,4]", False),
+            (r"let arr: string] = ['hello','world'];", False),
+            (r"let arr: string] = 'hello','world';", False),
         ]
+
+        self.run_test(tests)
+
+    def test_parser_tuple(self) -> None:
+        tests = [
+            # valid
+            (r'let tup1: [string, number] = ["hello", 42];', True),
+            (
+                r'let tup3: [string, boolean, number] = ["example", true, 7];',
+                True,
+            ),
+            #  invalid
+            ("let tup5: [string, number];", False),
+            (r'let tup2: [number] = "world";', False),
+        ]
+
         self.run_test(tests)
 
     # -----------------------------------------------------------------------------
@@ -148,6 +165,7 @@ class TestParser(unittest.TestCase):
             (r"for (let index = 1;index++){let foo = bar; };", False),
             (r"for(let index = 1;10<=index;index++);", False),
         ]
+
         self.run_test(tests)
 
     # -----------------------------------------------------------------------------

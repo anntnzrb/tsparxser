@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+
+# -*- coding: utf-8 -*-
+
+"""
+lexer.py: A lexer for tokenizing a TypeScript input.
+"""
+
 import ply.yacc as plyacc
 from ply.yacc import YaccProduction
 from typing import Tuple

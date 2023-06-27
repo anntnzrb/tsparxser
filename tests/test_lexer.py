@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+
+# -*- coding: utf-8 -*-
+
+"""
+test_lexer.py: Lexer testing.
+"""
+
 import unittest
 from ply.lex import LexToken
 from typing import List, Tuple, TypedDict, Any

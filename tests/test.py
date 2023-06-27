@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+
+# -*- coding: utf-8 -*-
+
+"""
+test.py: Run all tests.
+"""
+
 import subprocess
 
 

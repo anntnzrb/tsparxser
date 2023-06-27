@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+
+# -*- coding: utf-8 -*-
+
+"""
+main.py: Entry point for the TypeScript Lexer + Parser implementation
+"""
+
 from typing import List
 from ply.lex import LexToken
 

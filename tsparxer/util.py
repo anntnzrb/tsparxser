@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+
+# -*- coding: utf-8 -*-
+
+"""
+utility.py: Utilities file.
+"""
+
 import re
 from typing import Any, Dict, List
 

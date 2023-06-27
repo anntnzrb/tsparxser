@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+
+# -*- coding: utf-8 -*-
+
+"""
+lexer.py: A lexer implementation for TypeScript.
+"""
+
 import ply.lex as plylex
 from typing import List, Dict, Tuple
 from ply.lex import LexToken

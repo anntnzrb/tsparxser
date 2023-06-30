@@ -12,9 +12,11 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 ply = "^3.11"
+pysimplegui = "^4.60.5"
 
 [tool.poetry.scripts]
 app = "tsparxer.main:main"
+gui = "tsparxer.main:gui"
 test = "tests.test:test"
 parse = "tsparxer.util:parse"
 fmt = "lib.process_src:format"

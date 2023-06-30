@@ -313,7 +313,14 @@ class Parser:
     def parse(self, input: str):
         self.parser.parse(input, self.lexer)
 
-    def run(self, prompt: str):
+    def run(self, prompt: str = "TSParxser"):
+        try:
+            s = input(prompt)
+            self.parse(s)
+        except Exception as e:
+            print(f"Error: {e}")
+
+    def run_loop(self, prompt: str):
         while True:
             try:
                 s = input(prompt)

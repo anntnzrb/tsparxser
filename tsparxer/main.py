@@ -6,6 +6,7 @@
 main.py: Entry point for the TypeScript Lexer + Parser implementation
 """
 
+from enum import Enum
 from typing import List
 from ply.lex import LexToken
 import PySimpleGUI as sg
@@ -14,6 +15,11 @@ from .util import read_file
 from .lexer import Lexer as TSLexer
 from .parser import Parser as TSParser
 from tsparxer.parser import ParserSyntaxError
+
+
+class MenuChoice(Enum):
+    LEX = 1
+    YACC = 2
 
 
 def main():
@@ -30,14 +36,12 @@ def main():
     lexer: TSLexer = TSLexer()
     lexed: List[LexToken] = lexer.lex(data)
 
-    # option 1 : lex
-    if choice == 1:
+    if choice == MenuChoice.LEX:
         # show tokens
         for t in lexed:
             print(t)
 
-    # option 2 : yacc
-    elif choice == 2:
+    if choice == MenuChoice.YACC:
         parser: TSParser = TSParser(lexer)
         parser.run_loop("TSParser> ")
     else:

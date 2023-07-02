@@ -226,16 +226,23 @@ class Parser:
     # -----------------------------------------------------------------------------
 
     def get_type(self, value):
-        if isinstance(value, bool) or value in ['TRUE', 'FALSE', 'true', 'false', 'True', 'False']:
-            return 'boolean'
+        if isinstance(value, bool) or value in [
+            "TRUE",
+            "FALSE",
+            "true",
+            "false",
+            "True",
+            "False",
+        ]:
+            return "boolean"
         elif isinstance(value, str):
             # Remove leading and trailing quotes
-            value = value.strip('\'"')
-            return 'string'
+            value = value.strip("'\"")
+            return "string"
         elif isinstance(value, int) or isinstance(value, float):
-            return 'number'
+            return "number"
         else:
-            return 'unknown'
+            return "unknown"
 
     def p_assignment_var(self, p: YaccProduction) -> None:
         """
@@ -243,12 +250,14 @@ class Parser:
                     | assignment_var_type ID COLON data_type EQUALS assignment_var_value SEMICOLON
                     | assignment_var_type ID EQUALS arithmetic_expression SEMICOLON
         """
-        if len(p)==8:
+        if len(p) == 8:
             var_type = p[4]
             value_type = self.get_type(p[6])
 
             if var_type != value_type:
-                print(f"Type mismatch: cannot assign {value_type} to {var_type}")
+                print(
+                    f"Type mismatch: cannot assign {value_type} to {var_type}"
+                )
                 p[0] = None
             else:
                 p[0] = p[5]
@@ -339,11 +348,7 @@ class Parser:
         if len(p) == 2:
             p[0] = p[1]
         else:
-            p[0] = {
-                'operator': p[2],
-                'left': p[1],
-                'right': p[3]
-            }
+            p[0] = {"operator": p[2], "left": p[1], "right": p[3]}
 
     # -------------------------------------------------------------------------
 

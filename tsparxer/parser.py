@@ -225,12 +225,33 @@ class Parser:
     # Terminals
     # -----------------------------------------------------------------------------
 
+    def get_type(self, value):
+        if isinstance(value, bool) or value in ['TRUE', 'FALSE', 'true', 'false', 'True', 'False']:
+            return 'boolean'
+        elif isinstance(value, str):
+            # Remove leading and trailing quotes
+            value = value.strip('\'"')
+            return 'string'
+        elif isinstance(value, int) or isinstance(value, float):
+            return 'number'
+        else:
+            return 'unknown'
+
     def p_assignment_var(self, p: YaccProduction) -> None:
         """
         assignment_var : assignment_var_type ID EQUALS assignment_var_value SEMICOLON
-                       | assignment_var_type ID COLON data_type EQUALS assignment_var_value SEMICOLON
-                       | assignment_var_type ID EQUALS arithmetic_expression SEMICOLON
+                    | assignment_var_type ID COLON data_type EQUALS assignment_var_value SEMICOLON
+                    | assignment_var_type ID EQUALS arithmetic_expression SEMICOLON
         """
+        if len(p)==8:
+            var_type = p[4]
+            value_type = self.get_type(p[6])
+
+            if var_type != value_type:
+                print(f"Type mismatch: cannot assign {value_type} to {var_type}")
+                p[0] = None
+            else:
+                p[0] = p[5]
 
     def p_assignment_var_type(self, p: YaccProduction) -> None:
         """
@@ -238,71 +259,91 @@ class Parser:
                             | CONST
                             | VAR
         """
+        p[0] = p[1]
 
     def p_data_type(self, p: YaccProduction) -> None:
         """
         data_type : TYPE_BOOLEAN
-                  | TYPE_NUMBER
-                  | TYPE_STRING
+                | TYPE_NUMBER
+                | TYPE_STRING
         """
+        p[0] = p[1]
 
     def p_assignment_var_value(self, p: YaccProduction) -> None:
         """
         assignment_var_value : STRINGCONTENT
-                             | NUMBER
-                             | TRUE
-                             | FALSE
+                            | NUMBER
+                            | TRUE
+                            | FALSE
         """
+        p[0] = p[1]
 
     def p_assignment_var_values(self, p: YaccProduction) -> None:
         """
         assignment_var_values : assignment_var_value
-                              | assignment_var_value COMMA assignment_var_values
+                            | assignment_var_value COMMA assignment_var_values
         """
+        if len(p) == 2:
+            p[0] = [p[1]]
+        else:
+            p[0] = [p[1]] + p[3]
 
     def p_logical_exclamation(self, p: YaccProduction) -> None:
         """
         logical_exclamation : EXCLAMATION
         """
+        p[0] = p[1]
 
     def p_comparative_operators(self, p: YaccProduction) -> None:
         """
         comparative_operators : EQUALSEQUALS
-                              | EQUALSEQUALSEQUALS
-                              | EXCLAMATIONEQUALS
-                              | LESSTHAN
-                              | LESSTHANEQUALS
-                              | GREATERTHAN
-                              | GREATERTHANEQUALS
+                            | EQUALSEQUALSEQUALS
+                            | EXCLAMATIONEQUALS
+                            | LESSTHAN
+                            | LESSTHANEQUALS
+                            | GREATERTHAN
+                            | GREATERTHANEQUALS
         """
+        p[0] = p[1]
 
     def p_boolean_value(self, p: YaccProduction) -> None:
         """
         boolean_value : TRUE
-                      | FALSE
+                    | FALSE
         """
+        p[0] = p[1]
 
     def p_logical_operators(self, p: YaccProduction) -> None:
         """
         logical_operators : AMPERSANDAMPERSAND
-                          | OROR
+                        | OROR
         """
+        p[0] = p[1]
 
     def p_arithmetic_operators(self, p: YaccProduction) -> None:
         """
         arithmetic_operators : PLUS
-                             | MINUS
-                             | MULTIPLY
-                             | DIVIDE
-                             | MODULO
-                             | XOR
+                            | MINUS
+                            | MULTIPLY
+                            | DIVIDE
+                            | MODULO
+                            | XOR
         """
+        p[0] = p[1]
 
     def p_arithmetic_expression(self, p: YaccProduction) -> None:
         """
         arithmetic_expression : ID
-                              | ID arithmetic_operators arithmetic_expression
+                            | ID arithmetic_operators arithmetic_expression
         """
+        if len(p) == 2:
+            p[0] = p[1]
+        else:
+            p[0] = {
+                'operator': p[2],
+                'left': p[1],
+                'right': p[3]
+            }
 
     # -------------------------------------------------------------------------
 

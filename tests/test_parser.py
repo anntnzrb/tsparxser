@@ -7,7 +7,6 @@ test_parser.py: Parser testing.
 """
 
 import unittest
-from ply.lex import LexToken
 from typing import List, Tuple
 
 from tsparxer.lexer import Lexer as TSLexer

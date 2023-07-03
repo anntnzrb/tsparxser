@@ -12,11 +12,24 @@ def lint() -> None:
     """
     Lint all project files using flake8.
     """
-    subprocess.run(["flake8", ".", "--count", "--show-source", "--statistics"])
+
+    f_errcode_ignores: str = "--ignore=E501,W503"
+
     subprocess.run(
         [
             "flake8",
             ".",
+            f_errcode_ignores,
+            "--count",
+            "--show-source",
+            "--statistics",
+        ]
+    )
+    subprocess.run(
+        [
+            "flake8",
+            ".",
+            f_errcode_ignores,
             "--count",
             "--exit-zero",
             "--max-complexity=10",

@@ -119,10 +119,22 @@ class Parser:
 
     def p_control_structure(self, p: YaccProduction) -> None:
         """
-        control_structure : IF OPENPAREN condition CLOSEPAREN OPENBRACE statements CLOSEBRACE
-                          | WHILE OPENPAREN condition CLOSEPAREN OPENBRACE statements CLOSEBRACE
+        control_structure : control_if
+                          | control_while
                           | loop_for
         """
+
+    def p_control_if(self, p: YaccProduction) -> None:
+        """
+        control_if : IF OPENPAREN condition CLOSEPAREN OPENBRACE statements CLOSEBRACE
+        """
+        p[0] = ("if", p[3], p[6])
+
+    def p_control_while(self, p: YaccProduction) -> None:
+        """
+        control_while : WHILE OPENPAREN condition CLOSEPAREN OPENBRACE statements CLOSEBRACE
+        """
+        p[0] = ("while", p[3], p[6])
 
     def p_condition(self, p: YaccProduction) -> None:
         """
@@ -170,8 +182,12 @@ class Parser:
     def p_loop_for(self, p: YaccProduction) -> None:
         """
         loop_for : FOR OPENPAREN assignment_var_type ID EQUALS NUMBER SEMICOLON loop_for_condition SEMICOLON loop_for_var_delta CLOSEPAREN OPENBRACE statements CLOSEBRACE SEMICOLON
-        loop_for : FOR OPENPAREN assignment_var_type ID COLON data_type EQUALS NUMBER SEMICOLON loop_for_condition SEMICOLON loop_for_var_delta CLOSEPAREN OPENBRACE statements CLOSEBRACE SEMICOLON
+                 | FOR OPENPAREN assignment_var_type ID COLON data_type EQUALS NUMBER SEMICOLON loop_for_condition SEMICOLON loop_for_var_delta CLOSEPAREN OPENBRACE statements CLOSEBRACE SEMICOLON
         """
+        if len(p) == 16:
+            p[0] = ("for", p[8], p[10], p[13])
+        else:
+            p[0] = ("for", p[10], p[12], p[15])
 
     def p_loop_for_condition(self, p: YaccProduction) -> None:
         """

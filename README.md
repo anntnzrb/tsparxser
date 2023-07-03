@@ -28,15 +28,28 @@ poetry install
 
 ## Running the Application
 
-To run the application, use the following command:
+### Terminal
+
+To run the application via terminal, use the following command:
 
 ```sh
 poetry run app
 ```
 
+The will present 2 options, the first for testing the **lexer** and the latter
+for testing the **parser**.
+
+### GUI
+
+To run the graphical version of the application , use the following command:
+
+```sh
+poetry run gui
+```
+
 ## Running Tests
 
-To run the tests, use the following command:
+To run the tests (lexer + parser), use the following command:
 
 ```sh
 poetry run test

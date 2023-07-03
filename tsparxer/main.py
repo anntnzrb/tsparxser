@@ -53,7 +53,7 @@ def gui() -> None:
     layout = [
         [sg.Text("Enter code to parse:")],
         [
-            sg.Input(tooltip="Input data to parse"),
+            sg.Multiline(tooltip="Input data to parse", size=(50, 10)),
             sg.Button("Parse", bind_return_key=True),
         ],
         [
@@ -61,7 +61,7 @@ def gui() -> None:
                 [
                     [
                         sg.Output(
-                            size=(20, 20),
+                            size=(22, 20),
                             tooltip="Tokens are shown here",
                             key="-OUT-TOKENS-",
                         )
@@ -72,7 +72,7 @@ def gui() -> None:
                 [
                     [
                         sg.Output(
-                            size=(20, 20),
+                            size=(22, 20),
                             tooltip="Parsing errors are shown here",
                             key="-OUT-PARSED-",
                         )

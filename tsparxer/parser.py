@@ -225,7 +225,14 @@ class Parser:
     # Terminals
     # -----------------------------------------------------------------------------
 
-    def get_type(self, value):
+    def get_val_data_type(self, value):
+        """
+        NOTE: This method is a workaround (hack) to accomplish type verification.
+
+        It works by comparing the given value to Python's built-in types, it does
+        not perform a check with the lexed/parsed language.
+        """
+
         if isinstance(value, bool) or value in [
             "TRUE",
             "FALSE",
@@ -252,7 +259,7 @@ class Parser:
         """
         if len(p) == 8:
             var_type = p[4]
-            value_type = self.get_type(p[6])
+            value_type = self.get_val_data_type(p[6])
 
             if var_type != value_type:
                 print(

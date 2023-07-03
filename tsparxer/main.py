@@ -83,7 +83,7 @@ def gui() -> None:
         [sg.Button("Quit")],
     ]
 
-    window = sg.Window("TSParxer", layout)
+    window = sg.Window("TSParxer", layout, finalize=True)
 
     # create lexer and parser
     lexer: TSLexer = TSLexer()

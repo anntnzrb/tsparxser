@@ -79,15 +79,15 @@ def gui() -> None:
         except ParserSyntaxError as e:
             code_output.insert(END, e)
 
-
-
-    #Text Label
+    # Text Label
     var = StringVar()
-    input_label = Label( root, textvariable=var, relief=RAISED ,bd="0px",bg="#305265",fg="#fff")
+    input_label = Label(
+        root, textvariable=var, relief=RAISED, bd="0px", bg="#305265", fg="#fff"
+    )
 
     var.set("Insert Code")
     input_label.pack()
-    input_label.place(x=70,y=10, width=200,height=50)
+    input_label.place(x=70, y=10, width=200, height=50)
 
     # code input
     code_input = CodeEditor(
@@ -101,7 +101,6 @@ def gui() -> None:
         insertofftime=0,
     )
 
-
     # code_input.pack(fill="both", expand=True)
     code_input.place(x=50, y=50, width=1200, height=300)
     code_input.configure(bg="#000", insertbackground="#fff")
@@ -111,7 +110,7 @@ def gui() -> None:
         root, font="consolas 15", bg="#1D2722", fg="lightgreen", wrap=WORD
     )
     code_output.place(x=50, y=370, width=1200, height=300)
-    code_output.insert("1.0","-OUTPUT-")
+    code_output.insert("1.0", "-OUTPUT-")
     # button
     play_button = PhotoImage(file="./lib/assets/play_btn.png")
     Button(root, image=play_button, bg="#323846", bd=0, command=run).place(
@@ -127,8 +126,6 @@ def gui() -> None:
     Button(root, image=file_icon, bg="#323846", bd=0).place(
         x=8, y=5, width=32, height=32
     )
-
-    
 
     root.mainloop()
 

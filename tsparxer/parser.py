@@ -285,7 +285,9 @@ class Parser:
 
             if var_type != value_type:
                 p[0] = None
-                raise ParserSyntaxError(f"Type mismatch: cannot assign {value_type} to {var_type}")
+                raise ParserSyntaxError(
+                    f"Type mismatch: cannot assign {value_type} to {var_type}"
+                )
             else:
                 p[0] = p[5]
 

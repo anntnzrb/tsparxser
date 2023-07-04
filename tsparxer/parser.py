@@ -181,10 +181,10 @@ class Parser:
 
     def p_loop_for(self, p: YaccProduction) -> None:
         """
-        loop_for : FOR OPENPAREN assignment_var_type ID EQUALS NUMBER SEMICOLON loop_for_condition SEMICOLON loop_for_var_delta CLOSEPAREN OPENBRACE statements CLOSEBRACE SEMICOLON
-                 | FOR OPENPAREN assignment_var_type ID COLON data_type EQUALS NUMBER SEMICOLON loop_for_condition SEMICOLON loop_for_var_delta CLOSEPAREN OPENBRACE statements CLOSEBRACE SEMICOLON
+        loop_for : FOR OPENPAREN assignment_var_type ID EQUALS NUMBER SEMICOLON loop_for_condition SEMICOLON loop_for_var_delta CLOSEPAREN OPENBRACE statements CLOSEBRACE
+                 | FOR OPENPAREN assignment_var_type ID COLON data_type EQUALS NUMBER SEMICOLON loop_for_condition SEMICOLON loop_for_var_delta CLOSEPAREN OPENBRACE statements CLOSEBRACE
         """
-        if len(p) == 16:
+        if len(p) == 15:
             p[0] = ("for", p[8], p[10], p[13])
         else:
             p[0] = ("for", p[10], p[12], p[15])

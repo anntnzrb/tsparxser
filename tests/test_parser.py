@@ -145,24 +145,24 @@ class TestParser(unittest.TestCase):
     def test_parser_for_loop(self) -> None:
         tests = [
             # valid
-            (r"for(let index = 1;index<=10;index++){let foo = 'bar';};", True),
+            (r"for(let index = 1;index<=10;index++){let foo = 'bar';}", True),
             (
-                r"for(let index = 1;index>=5;index--){var n: number = 10;};",
+                r"for(let index = 1;index>=5;index--){var n: number = 10;}",
                 True,
             ),
             (
-                r"for(let index = 1;index>=5;++index){var n: number = 10;};",
+                r"for(let index = 1;index>=5;++index){var n: number = 10;}",
                 True,
             ),
             (
-                r'for(let numero: number = 20; numero==100; numero++){var y = "foo";};',
+                r'for(let numero: number = 20; numero==100; numero++){var y = "foo";}',
                 True,
             ),
             # invalid
-            (r"for let index = 1;10<=index;index++){let foo = bar; };", False),
-            (r"for (let index = 1,10<=index,index++){ let foo = bar;};", False),
-            (r"for (let index = 1;index++){let foo = bar; };", False),
-            (r"for(let index = 1;10<=index;index++);", False),
+            (r"for let index = 1;10<=index;index++){let foo = bar; }", False),
+            (r"for (let index = 1,10<=index,index++){ let foo = bar;}", False),
+            (r"for (let index = 1;index++){let foo = bar; }", False),
+            (r"for(let index = 1;10<=index;index++)", False),
         ]
 
         self.run_test(tests)

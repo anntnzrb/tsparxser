@@ -284,10 +284,8 @@ class Parser:
             value_type = self.get_val_data_type(p[6])
 
             if var_type != value_type:
-                print(
-                    f"Type mismatch: cannot assign {value_type} to {var_type}"
-                )
                 p[0] = None
+                raise ParserSyntaxError(f"Type mismatch: cannot assign {value_type} to {var_type}")
             else:
                 p[0] = p[5]
 

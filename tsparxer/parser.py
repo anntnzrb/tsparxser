@@ -276,9 +276,8 @@ class Parser:
 
     def p_assignment_var(self, p: YaccProduction) -> None:
         """
-        assignment_var : assignment_var_type ID EQUALS assignment_var_value SEMICOLON
+        assignment_var : assignment_var_type ID EQUALS assignment_var_values SEMICOLON
                        | assignment_var_type ID COLON data_type EQUALS assignment_var_value SEMICOLON
-                       | assignment_var_type ID EQUALS arithmetic_expression SEMICOLON
         """
         if len(p) == 8:
             var_type = p[4]
@@ -314,6 +313,7 @@ class Parser:
                              | NUMBER
                              | TRUE
                              | FALSE
+                             | ID
         """
         p[0] = p[1]
 
@@ -321,6 +321,7 @@ class Parser:
         """
         assignment_var_values : assignment_var_value
                               | assignment_var_value COMMA assignment_var_values
+                              | assignment_var_value arithmetic_operators assignment_var_values
         """
         if len(p) == 2:
             p[0] = [p[1]]
@@ -370,15 +371,15 @@ class Parser:
         """
         p[0] = p[1]
 
-    def p_arithmetic_expression(self, p: YaccProduction) -> None:
-        """
-        arithmetic_expression : ID
-                              | ID arithmetic_operators arithmetic_expression
-        """
-        if len(p) == 2:
-            p[0] = p[1]
-        else:
-            p[0] = {"operator": p[2], "left": p[1], "right": p[3]}
+    # def p_arithmetic_expression(self, p: YaccProduction) -> None:
+    #     """
+    #     arithmetic_expression : ID
+    #                           | ID arithmetic_operators arithmetic_expression
+    #     """
+    #     if len(p) == 2:
+    #         p[0] = p[1]
+    #     else:
+    #         p[0] = {"operator": p[2], "left": p[1], "right": p[3]}
 
     # -------------------------------------------------------------------------
 

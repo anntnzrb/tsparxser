@@ -120,6 +120,7 @@ class Parser:
     def p_control_structure(self, p: YaccProduction) -> None:
         """
         control_structure : control_if
+                          | control_if_else
                           | control_while
                           | loop_for
         """
@@ -129,6 +130,12 @@ class Parser:
         control_if : IF OPENPAREN condition CLOSEPAREN OPENBRACE statements CLOSEBRACE
         """
         p[0] = ("if", p[3], p[6])
+
+    def p_control_if_else(self, p: YaccProduction) -> None:
+        """
+        control_if_else : control_if ELSE OPENBRACE statements CLOSEBRACE
+        """
+        p[0] = ("if_else", p[4])
 
     def p_control_while(self, p: YaccProduction) -> None:
         """

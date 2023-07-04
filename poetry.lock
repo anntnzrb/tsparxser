@@ -182,15 +182,32 @@ files = [
 ]
 
 [[package]]
-name = "pysimplegui"
-version = "4.60.5"
-description = "Python GUIs for Humans. Launched in 2018. It's 2022 & PySimpleGUI is an ACTIVE & supported project. Super-simple to create custom GUI's. 325+ Demo programs & Cookbook for rapid start. Extensive documentation. Main docs at www.PySimpleGUI.org. Fun & your success are the focus. Examples using Machine Learning (GUI, OpenCV Integration), Rainmeter Style Desktop Widgets, Matplotlib + Pyplot, PIL support, add GUI to command line scripts, PDF & Image Viewers. Great for beginners & advanced GUI programmers."
+name = "pygments"
+version = "2.15.1"
+description = "Pygments is a syntax highlighting package written in Python."
 optional = false
-python-versions = "*"
+python-versions = ">=3.7"
 files = [
-    {file = "PySimpleGUI-4.60.5-py3-none-any.whl", hash = "sha256:004f33311ee685a5287fad54f500f7290b40d7c806044e478b1384f85dedce64"},
-    {file = "PySimpleGUI-4.60.5.tar.gz", hash = "sha256:31014d1cc5eef1373d7e93564ff2604662645cc774a939b1f01aa253e7f9d78b"},
+    {file = "Pygments-2.15.1-py3-none-any.whl", hash = "sha256:db2db3deb4b4179f399a09054b023b6a586b76499d36965813c71aa8ed7b5fd1"},
+    {file = "Pygments-2.15.1.tar.gz", hash = "sha256:8ace4d3c1dd481894b2005f560ead0f9f19ee64fe983366be1a21e171d12775c"},
 ]
+
+[package.extras]
+plugins = ["importlib-metadata"]
+
+[[package]]
+name = "tkcode"
+version = "0.1.6"
+description = "A code editor and code block widget for tkinter with syntax highlighting, and some other useful stuff"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "tkcode-0.1.6-py3-none-any.whl", hash = "sha256:d0706b0e94a7081ec86d197c734d4284c7e292740331015e7703b10988ba5fa4"},
+    {file = "tkcode-0.1.6.tar.gz", hash = "sha256:6b3f37583eb494f8e06730a1b970658319b1a81ca0ba4e06452cf75556b42b3f"},
+]
+
+[package.dependencies]
+pygments = "*"
 
 [[package]]
 name = "tomli"
@@ -206,4 +223,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "3abf685302b45cbc0a9461e246134329baf48a1b256c8094316ffb2d576dc3ce"
+content-hash = "583586cb611cb12a48e4228b9b0d57fcd0c7966c5df7f85b6067d832d03a875c"

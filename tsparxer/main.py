@@ -8,7 +8,8 @@ main.py: Entry point for the TypeScript Lexer + Parser implementation
 
 from typing import List
 from ply.lex import LexToken
-import PySimpleGUI as sg
+from tkinter import *
+from tkcode import CodeEditor
 
 from .util import read_file
 from .lexer import Lexer as TSLexer
@@ -50,68 +51,72 @@ def clear_windows(*windows):
 
 
 def gui() -> None:
-    layout = [
-        [sg.Text("Enter code to parse:")],
-        [
-            sg.Multiline(tooltip="Input data to parse", size=(50, 10)),
-            sg.Button("Parse", bind_return_key=True),
-        ],
-        [
-            sg.Column(
-                [
-                    [
-                        sg.Output(
-                            size=(22, 20),
-                            tooltip="Tokens are shown here",
-                            key="-OUT-TOKENS-",
-                        )
-                    ],
-                ]
-            ),
-            sg.Column(
-                [
-                    [
-                        sg.Output(
-                            size=(22, 20),
-                            tooltip="Parsing errors are shown here",
-                            key="-OUT-PARSED-",
-                        )
-                    ],
-                ]
-            ),
-        ],
-        [sg.Button("Quit")],
-    ]
-
-    window = sg.Window("TSParxer", layout, finalize=True)
+    root = Tk()
+    root.title("GUI")
+    root.geometry("1280x720")
+    root.configure(bg="#323846")
+    root.resizable(False, False)
 
     # create lexer and parser
     lexer: TSLexer = TSLexer()
     parser: TSParser = TSParser(lexer)
 
-    while True:
-        ev, val = window.read()
-        if ev == sg.WINDOW_CLOSED or ev == "Quit":
-            break
+    def run():
+        # clear output windows beforehand
+        code_output.delete("1.0", END)
 
-        # process input when 'Parse' button or 'Enter' key is pressed
-        if ev == "Parse":
-            data = val[0]
-            lexed: List[LexToken] = lexer.lex(data)
+        lexer = TSLexer()
 
-            # clear output windows beforehand
-            clear_windows(window["-OUT-TOKENS-"], window["-OUT-PARSED-"])
-
-            # show tokens
+        data = code_input.get("1.0", "end-1c")
+        lexed: List[LexToken] = lexer.lex(data)
+        try:
+            parser.parse(data)
             for t in lexed:
-                print(t, file=window["-OUT-TOKENS-"])
+                # Insert lexed token at the end of the text widget
+                code_output.insert(END, t)
+                # Add a newline after each token
+                code_output.insert(END, "\n")
+        except ParserSyntaxError as e:
+            code_output.insert(END, e)
 
-            try:
-                parser.parse(data)
-            except ParserSyntaxError as e:
-                print(str(e), file=window["-OUT-PARSED-"])
+    # code input
+    code_input = CodeEditor(
+        root,
+        language="TypeScript",
+        background="black",
+        highlighter="dracula",
+        font="consolas",
+        autofocus=True,
+        blockcursor=True,
+        insertofftime=0,
+    )
+    # code_input.pack(fill="both", expand=True)
+    code_input.place(x=50, y=50, width=1200, height=300)
+    code_input.configure(bg="#000", insertbackground="#fff")
 
-    window.close()
+    # output
+    code_output = Text(
+        root, font="consolas 15", bg="#1D2722", fg="lightgreen", wrap=WORD
+    )
+    code_output.place(x=50, y=370, width=1200, height=300)
+
+    # button
+    play_button = PhotoImage(file="./lib/assets/play_btn.png")
+    Button(root, image=play_button, bg="#323846", bd=0, command=run).place(
+        x=1000, y=5, width=64, height=64
+    )
+
+    # files-bar
+    files_bar = Canvas(bg="#403C3E", height=720, width=45, bd=0, borderwidth=0)
+    files_bar.place(x=0, y=0)
+
+    # file_icon
+    file_icon = PhotoImage(file="./lib/assets/file.png")
+    Button(root, image=file_icon, bg="#323846", bd=0).place(
+        x=8, y=5, width=32, height=32
+    )
+
+    root.mainloop()
 
 
 if __name__ == "__main__":

@@ -12,7 +12,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 ply = "^3.11"
-pysimplegui = "^4.60.5"
+tkcode = "^0.1.6"
 
 [tool.poetry.scripts]
 app = "tsparxer.main:main"

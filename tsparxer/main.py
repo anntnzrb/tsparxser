@@ -61,7 +61,7 @@ def gui() -> None:
     lexer: TSLexer = TSLexer()
     parser: TSParser = TSParser(lexer)
 
-    def run():
+    def run_lex():
         # clear output windows beforehand
         code_output.delete("1.0", END)
 
@@ -69,25 +69,56 @@ def gui() -> None:
 
         data = code_input.get("1.0", "end-1c")
         lexed: List[LexToken] = lexer.lex(data)
+        
+        for t in lexed:
+            # Insert lexed token at the end of the text widget
+            code_output.insert(END, t)
+            # Add a newline after each token
+            code_output.insert(END, "\n")
+        
+    def run_syntax():
+        # clear output windows beforehand
+        code_output.delete("1.0", END)
+
+        lexer = TSLexer()
+
+        data = code_input.get("1.0", "end-1c")
         try:
             parser.parse(data)
-            for t in lexed:
-                # Insert lexed token at the end of the text widget
-                code_output.insert(END, t)
-                # Add a newline after each token
-                code_output.insert(END, "\n")
+            code_output.insert("1.0", "All syntax is correct")
         except ParserSyntaxError as e:
             code_output.insert(END, e)
 
-    # Text Label
-    var = StringVar()
-    input_label = Label(
-        root, textvariable=var, relief=RAISED, bd="0px", bg="#305265", fg="#fff"
-    )
+    def clear():
+        code_input.delete("1.0", END)
 
-    var.set("Insert Code")
+    # Text Label
+    insert_str = StringVar()
+    input_label = Label(
+        root, textvariable=insert_str, relief=RAISED, bd="0px", bg="#305265", fg="#fff"
+    )
+    insert_str.set("Insert Code")
     input_label.pack()
     input_label.place(x=70, y=10, width=200, height=50)
+
+    #Syntax label to run
+    syntax_str = StringVar()
+    syntax_label = Label(
+        root, textvariable=syntax_str, relief=RAISED, bd="0px", bg="#305265", fg="#fff"
+    )
+    syntax_str.set("Run Syntax")
+    syntax_label.pack()
+    syntax_label.place(x=850, y=5, width=100, height=50)
+
+    #Lex label to run
+    lex_str = StringVar()
+    lex_label = Label(
+        root, textvariable=lex_str, relief=RAISED, bd="0px", bg="#305265", fg="#fff"
+    )
+    lex_str.set("Run Lex")
+    lex_label.pack()
+    lex_label.place(x=1060, y=5, width=50, height=50)
+
 
     # code input
     code_input = CodeEditor(
@@ -111,10 +142,24 @@ def gui() -> None:
     )
     code_output.place(x=50, y=370, width=1200, height=300)
     code_output.insert("1.0", "-OUTPUT-")
-    # button
-    play_button = PhotoImage(file="./lib/assets/play_btn.png")
-    Button(root, image=play_button, bg="#323846", bd=0, command=run).place(
+    
+    
+    # Lex button
+    lex_btn = PhotoImage(file="./lib/assets/play_btn.png")
+    Button(root, image=lex_btn, bg="#323846", bd=0, command=run_lex).place(
         x=1000, y=5, width=64, height=64
+    )
+
+    #Syntax button
+    syntax_btn = PhotoImage(file="./lib/assets/play_btn.png")
+    Button(root, image=lex_btn, bg="#323846", bd=0, command=run_syntax).place(
+        x=800, y=5, width=64, height=64
+    )
+
+    #Clear button
+    clear_btn = PhotoImage(file="./lib/assets/clear.png",)
+    Button(root, image=clear_btn, bg="#323846", bd=0, command=clear,text="Clean").place(
+        x=700, y=5, width=64, height=64
     )
 
     # files-bar

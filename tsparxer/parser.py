@@ -35,6 +35,7 @@ class Parser:
                   | control_structure
                   | data_structure
                   | function_decl
+                  | console_log
         """
 
     def p_statements(self, p: YaccProduction) -> None:
@@ -127,15 +128,22 @@ class Parser:
 
     def p_control_if(self, p: YaccProduction) -> None:
         """
-        control_if : IF OPENPAREN condition CLOSEPAREN OPENBRACE statements CLOSEBRACE
+        control_if : IF OPENPAREN condition CLOSEPAREN OPENBRACE control_if_body CLOSEBRACE
         """
         p[0] = ("if", p[3], p[6])
 
     def p_control_if_else(self, p: YaccProduction) -> None:
         """
-        control_if_else : control_if ELSE OPENBRACE statements CLOSEBRACE
+        control_if_else : control_if ELSE OPENBRACE control_if_body CLOSEBRACE
         """
         p[0] = ("if_else", p[4])
+
+    def p_control_if_body(self, p: YaccProduction) -> None:
+        """
+        control_if_body : statements
+                        | RETURN assignment_var_value SEMICOLON
+                        | statements RETURN assignment_var_value SEMICOLON
+        """
 
     def p_control_while(self, p: YaccProduction) -> None:
         """
@@ -158,8 +166,7 @@ class Parser:
     def p_logical(self, p: YaccProduction) -> None:
         """
         logical : logical_values
-                | logical_values logical_operators logical_values
-                | logical_values logical_operators logical_values logical_operators logical
+                | logical_values logical_operators logical
         """
 
     def p_logical_values(self, p: YaccProduction) -> None:
@@ -171,9 +178,15 @@ class Parser:
 
     def p_comparative(self, p: YaccProduction) -> None:
         """
-        comparative : comparative_values comparative_operators comparative_values
+        comparative : arithmetic_expression comparative_operators arithmetic_expression
                     | STRINGCONTENT EQUALSEQUALS STRINGCONTENT
                     | STRINGCONTENT EQUALSEQUALSEQUALS STRINGCONTENT
+        """
+
+    def p_arithmetic_expression(self, p: YaccProduction) -> None:
+        """
+        arithmetic_expression : comparative_values
+                              | comparative_values arithmetic_operators arithmetic_expression
         """
 
     def p_comparative_values(self, p: YaccProduction) -> None:
@@ -371,15 +384,24 @@ class Parser:
         """
         p[0] = p[1]
 
-    # def p_arithmetic_expression(self, p: YaccProduction) -> None:
-    #     """
-    #     arithmetic_expression : ID
-    #                           | ID arithmetic_operators arithmetic_expression
-    #     """
-    #     if len(p) == 2:
-    #         p[0] = p[1]
-    #     else:
-    #         p[0] = {"operator": p[2], "left": p[1], "right": p[3]}
+    def p_console_log(self, p: YaccProduction) -> None:
+        """
+        console_log : CONSOLE DOT LOG OPENPAREN console_content CLOSEPAREN SEMICOLON
+        """
+
+    def p_console_log_content(self, p: YaccProduction) -> None:
+        """
+        console_content : console_values
+                        | console_values PLUS console_content
+                        | ID OPENPAREN console_values CLOSEPAREN
+        """
+
+    def p_console_log_values(self, p: YaccProduction) -> None:
+        """
+        console_values : ID
+                       | NUMBER
+                       | STRINGCONTENT
+        """
 
     # -------------------------------------------------------------------------
 

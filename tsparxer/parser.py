@@ -212,6 +212,8 @@ class Parser:
     def p_loop_for_condition(self, p: YaccProduction) -> None:
         """
         loop_for_condition : ID comparative_operators NUMBER
+                           | NUMBER comparative_operators ID
+                           | ID comparative_operators ID
         """
 
     def p_loop_for_var_delta(self, p: YaccProduction) -> None:

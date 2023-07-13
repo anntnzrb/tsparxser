@@ -145,11 +145,12 @@ class TestParser(unittest.TestCase):
     def test_parser_for_loop(self) -> None:
         tests = [
             # valid
-            (r"for(let index = 1;index<=10;index++){let foo = 'bar';}", True),
+            (r"for(let index = 1;10<=index;index++){let foo = 'bar';}", True),
             (
                 r"for(let index = 1;index>=5;index--){var n: number = 10;}",
                 True,
             ),
+            (r"for(let index = 1;variable<=index;index++){let foo = 'bar';}", True),
             (
                 r"for(let index = 1;index>=5;++index){var n: number = 10;}",
                 True,

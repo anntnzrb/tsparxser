@@ -150,7 +150,10 @@ class TestParser(unittest.TestCase):
                 r"for(let index = 1;index>=5;index--){var n: number = 10;}",
                 True,
             ),
-            (r"for(let index = 1;variable<=index;index++){let foo = 'bar';}", True),
+            (
+                r"for(let index = 1;variable<=index;index++){let foo = 'bar';}",
+                True,
+            ),
             (
                 r"for(let index = 1;index>=5;++index){var n: number = 10;}",
                 True,
